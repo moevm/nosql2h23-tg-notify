@@ -1,1 +1,1 @@
-Скринкаст: https://disk.yandex.ru/i/IluAFF6mQU8SxQ
+Скринкаст: https://disk.yandex.ru/i/FpzClfS9M9dqog

@@ -1,6 +1,17 @@
 version: "3"
 
 services:
+  backend:
+    container_name: tg_api
+    build: .
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    depends_on:
+      - mongodb
+    env_file:
+      - .env
+
   mongodb:
     container_name: tg_db
     image: "mongo:6-jammy"

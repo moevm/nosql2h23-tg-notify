@@ -1,5 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from bson.objectid import ObjectId
+from typing import List
 
 from app.models.User import User
 from app.backend.db import db
@@ -23,3 +24,16 @@ def get_user(id: str):
         return user
     else:
         raise HTTPException(status_code=404, detail=f"User {id} not found")
+    
+
+@router.get(
+    "/users/",
+    response_description="List all Users",
+    response_model=List[User],
+    response_model_by_alias=False,
+)
+async def list_students():
+    """
+    List all of the Users data in the database.
+    """
+    return  list(db.collection_Users.find())

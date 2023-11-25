@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException
 from bson.objectid import ObjectId
 
 from app.models.User import User
-from app.backend import db
+from app.backend.db import db
 
 router = APIRouter(prefix="/api")
 

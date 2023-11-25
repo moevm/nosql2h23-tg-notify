@@ -4,7 +4,7 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 
 from config import DB_NAME, DB_HOST, DB_PASSWORD, DB_PORT, DB_USERNAME
-from db import MongoDB
+
 
 user_1 = {
   "_id": ObjectId(),
@@ -69,8 +69,14 @@ log_2 = {
 if __name__ == "__main__":   
 
     # Get the database
-    db = MongoDB(DB_NAME, DB_USERNAME, DB_PASSWORD, DB_HOST, DB_PORT)
+    CONNECTION_STRING = f"mongodb://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}"
 
-    db.collection_Users.insert_many([user_1, user_2])
-    db.collection_Tables.insert_many([table_1, table_2])
-    db.collection_Logs.insert_many([log_1, log_2])
+    db  = MongoClient(CONNECTION_STRING)[DB_NAME]
+
+    collection_Users = db["Users"]
+    collection_Tables = db["Tables"]
+    collection_Logs = db["Logs"]
+
+    collection_Users.insert_many([user_1, user_2])
+    collection_Tables.insert_many([table_1, table_2])
+    collection_Logs.insert_many([log_1, log_2])

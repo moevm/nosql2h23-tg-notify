@@ -1,10 +1,14 @@
-from typing import Optional
+from typing import Optional, Annotated
 from datetime import datetime
-from pydantic import BaseModel, field_validator, Field
+from pydantic import BaseModel, field_validator, Field, BeforeValidator
+from bson.objectid import ObjectId
 
+# Represents an ObjectId field in the database.
+# It will be represented as a `str` on the model so that it can be serialized to JSON.
+PyObjectId = Annotated[str, BeforeValidator(str)]
 
 class User(BaseModel):
-    id: Optional[str] = Field(alias="_id", default=None)
+    id: Optional[PyObjectId] = Field(alias="_id", default=None)
     login: Optional[str] = None
     password: Optional[str] = None
     userTg: Optional[str] = None

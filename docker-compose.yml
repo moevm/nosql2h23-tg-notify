@@ -20,3 +20,8 @@ services:
       - "27017:27017"
     env_file:
       - .env
+    volumes:
+      - dbdata6:/data/db
+          
+volumes:
+  dbdata6:

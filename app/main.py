@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 
 from app.routers import (
-    test
+    TestRouter,
+    UserRouter
 )
 
 app = FastAPI(
@@ -11,4 +12,5 @@ app = FastAPI(
     swagger_ui_parameters={"defaultModelsExpandDepth": -1},
 )
 
-app.include_router(test.router)
+app.include_router(TestRouter.router)
+app.include_router(UserRouter.router)

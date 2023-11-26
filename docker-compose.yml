@@ -10,7 +10,7 @@ services:
     env_file:
       - .env
     volumes:
-          - dbdata6:/data/db
+      - dbdata6:/data/db
           
 volumes:
   dbdata6:

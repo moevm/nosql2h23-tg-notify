@@ -1,4 +1,5 @@
 from datetime import datetime
+
 from pydantic import BaseModel
 
 
@@ -7,4 +8,4 @@ class Log(BaseModel):
     tableUrl: str
     creationDate: datetime
     message: str
-    columName: str
+    columnName: str

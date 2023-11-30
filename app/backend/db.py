@@ -4,6 +4,8 @@ from typing import List
 
 from app.backend.config import DB_NAME, DB_HOST, DB_PASSWORD, DB_PORT, DB_USERNAME
 from app.models.User import User
+from app.models.Table import Table
+from app.models.Log import Log
 
 
 class MongoDB:
@@ -13,8 +15,8 @@ class MongoDB:
         self.db = MongoClient(CONNECTION_STRING)[db_name]
 
         self.Users = UsersCollection(self.db["Users"])
-        self.collection_Tables = self.db["Tables"]
-        self.collection_Logs = self.db["Logs"]
+        self.collection_Tables = TablesCollection(self.db["Tables"])
+        self.collection_Logs = LogsCollection(self.db["Logs"])
 
 
 class UsersCollection:
@@ -50,9 +52,46 @@ class TablesCollection:
     def __init__(self, collection):
         self.collection = collection
 
+    def get_by_id(self, id: str) -> Table:
+        table_json = self.collection.find_one({"_id": ObjectId(id)})
+
+        return Table(**table_json)
+    
+    def get_all(self) -> List[Table]:
+        list_tables = []
+        cursor_tables = self.collection.find()
+
+        for t in cursor_tables:
+            list_tables.append(Table(**t))
+
+        return list_tables
+
+    def insert(self, table: Table):
+        self.collection.insert_one(table.model_dump(by_alias=True, exclude=["id"]))   
+
+
+
 class LogsCollection:
     def __init__(self, collection):
         self.collection = collection
+
+    def get_by_id(self, id: str) -> Log:
+        log_json = self.collection.find_one({"_id": ObjectId(id)})
+
+        return Log(**log_json)
+    
+    # TODO сделать ограничение на кол-во
+    def get_all(self) -> List[Log]:
+        list_logs = []
+        cursor_logs = self.collection.find()
+
+        for l in cursor_logs:
+            list_logs.append(Log(**l))
+
+        return list_logs
+
+    def insert(self, log: Log):
+        self.collection.insert_one(log.model_dump(by_alias=True, exclude=["id"]))   
 
 
 db = MongoDB(DB_NAME, DB_USERNAME, DB_PASSWORD, DB_HOST, DB_PORT)

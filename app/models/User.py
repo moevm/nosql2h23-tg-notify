@@ -36,3 +36,5 @@ class User(BaseModel):
 
             if data.get('userTg') is None or data.get('position') is None:
                 raise ValueError('For a Teacher userTg, position must not be None')
+
+        return v

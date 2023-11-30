@@ -3,7 +3,7 @@ from typing import List
 from fastapi import APIRouter, HTTPException
 
 from app.models.User import User
-from app.services import UserService
+from app.services.UserService import UserService
 
 router = APIRouter(prefix="/api")
 

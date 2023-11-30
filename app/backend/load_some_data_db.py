@@ -1,7 +1,7 @@
 from bson.objectid import ObjectId
 from pymongo import MongoClient
 
-from config import DB_NAME, DB_HOST, DB_PASSWORD, DB_PORT, DB_USERNAME
+from config import DB_NAME, DB_PASSWORD, DB_PORT, DB_USERNAME
 
 user_1 = {
     "_id": ObjectId(),
@@ -62,7 +62,7 @@ log_2 = {
 }
 
 if __name__ == "__main__":
-    CONNECTION_STRING = f"mongodb://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}"
+    CONNECTION_STRING = f"mongodb://{DB_USERNAME}:{DB_PASSWORD}@localhost:{DB_PORT}"
 
     db = MongoClient(CONNECTION_STRING)[DB_NAME]
 

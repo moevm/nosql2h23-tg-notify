@@ -44,8 +44,10 @@ class UsersCollection:
         return list_users
 
     def insert(self, user: User):
-        self.collection.insert_one(user.model_dump(by_alias=True, exclude=["id"]))   
+        self.collection.insert_one(user.model_dump(by_alias=True, exclude=["id"]))
 
+    def delete(self, id: str):
+        self.collection.delete_one({"_id": ObjectId(id)})
         
 
 class TablesCollection:
@@ -68,6 +70,9 @@ class TablesCollection:
 
     def insert(self, table: Table):
         self.collection.insert_one(table.model_dump(by_alias=True, exclude=["id"]))   
+    
+    def delete(self, id: str):
+        self.collection.delete_one({"_id": ObjectId(id)})
 
 
 
@@ -92,6 +97,9 @@ class LogsCollection:
 
     def insert(self, log: Log):
         self.collection.insert_one(log.model_dump(by_alias=True, exclude=["id"]))   
+
+    def delete(self, id: str):
+        self.collection.delete_one({"_id": ObjectId(id)})
 
 
 db = MongoDB(DB_NAME, DB_USERNAME, DB_PASSWORD, DB_HOST, DB_PORT)

@@ -21,20 +21,20 @@ class MongoDB:
 
 class UsersCollection:
     def __init__(self, collection):
-        self.collection = collection 
+        self.collection = collection
 
     def get_by_id(self, user_id: str) -> User:
         user_json = self.collection.find_one({"_id": ObjectId(user_id)})
 
         return User(**user_json)
-    
+
     def get_by_login(self, login: str) -> User:
         user_json = self.collection.find_one({"login": login})
 
         return User(**user_json)
 
     def get_all(self) -> List[User]:
-        
+
         list_users = []
         cursor_users = self.collection.find()
 
@@ -46,19 +46,19 @@ class UsersCollection:
     def insert(self, user: User):
         self.collection.insert_one(user.model_dump(by_alias=True, exclude=["id"]))
 
-    def delete(self, id: str):
-        self.collection.delete_one({"_id": ObjectId(id)})
-        
+    def delete(self, user_id: str):
+        self.collection.delete_one({"_id": ObjectId(user_id)})
+
 
 class TablesCollection:
     def __init__(self, collection):
         self.collection = collection
 
-    def get_by_id(self, id: str) -> Table:
-        table_json = self.collection.find_one({"_id": ObjectId(id)})
+    def get_by_id(self, table_id: str) -> Table:
+        table_json = self.collection.find_one({"_id": ObjectId(table_id)})
 
         return Table(**table_json)
-    
+
     def get_all(self) -> List[Table]:
         list_tables = []
         cursor_tables = self.collection.find()
@@ -69,21 +69,21 @@ class TablesCollection:
         return list_tables
 
     def insert(self, table: Table):
-        self.collection.insert_one(table.model_dump(by_alias=True, exclude=["id"]))   
-    
-    def delete(self, id: str):
-        self.collection.delete_one({"_id": ObjectId(id)})
+        self.collection.insert_one(table.model_dump(by_alias=True, exclude=["id"]))
+
+    def delete(self, table_id: str):
+        self.collection.delete_one({"_id": ObjectId(table_id)})
 
 
 class LogsCollection:
     def __init__(self, collection):
         self.collection = collection
 
-    def get_by_id(self, id: str) -> Log:
-        log_json = self.collection.find_one({"_id": ObjectId(id)})
+    def get_by_id(self, table_id: str) -> Log:
+        log_json = self.collection.find_one({"_id": ObjectId(table_id)})
 
         return Log(**log_json)
-    
+
     # TODO сделать ограничение на кол-во
     def get_all(self) -> List[Log]:
         list_logs = []
@@ -95,10 +95,10 @@ class LogsCollection:
         return list_logs
 
     def insert(self, log: Log):
-        self.collection.insert_one(log.model_dump(by_alias=True, exclude=["id"]))   
+        self.collection.insert_one(log.model_dump(by_alias=True, exclude=["id"]))
 
-    def delete(self, id: str):
-        self.collection.delete_one({"_id": ObjectId(id)})
+    def delete(self, log_id: str):
+        self.collection.delete_one({"_id": ObjectId(log_id)})
 
 
 db = MongoDB(DB_NAME, DB_USERNAME, DB_PASSWORD, DB_HOST, DB_PORT)

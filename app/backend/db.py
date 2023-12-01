@@ -15,8 +15,8 @@ class MongoDB:
         self.db = MongoClient(CONNECTION_STRING)[db_name]
 
         self.Users = UsersCollection(self.db["Users"])
-        self.collection_Tables = TablesCollection(self.db["Tables"])
-        self.collection_Logs = LogsCollection(self.db["Logs"])
+        self.Tables = TablesCollection(self.db["Tables"])
+        self.Logs = LogsCollection(self.db["Logs"])
 
 
 class UsersCollection:
@@ -75,7 +75,6 @@ class TablesCollection:
         self.collection.delete_one({"_id": ObjectId(id)})
 
 
-
 class LogsCollection:
     def __init__(self, collection):
         self.collection = collection
@@ -103,4 +102,3 @@ class LogsCollection:
 
 
 db = MongoDB(DB_NAME, DB_USERNAME, DB_PASSWORD, DB_HOST, DB_PORT)
-

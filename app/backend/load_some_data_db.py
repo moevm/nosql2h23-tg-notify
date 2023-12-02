@@ -6,7 +6,7 @@ from config import DB_NAME, DB_PASSWORD, DB_PORT, DB_USERNAME
 user_1 = {
     "_id": ObjectId(),
     "login": "vasia",
-    "password": "12345678",
+    "password": "$2b$12$fY/mEvyT8P/mkvsMXINhLeF5.xTDordepTfJKr0lx.BMqqhPwtd6K",  # 12345678
     "userTg": None,
     "username": "Василий Иванович Пупкин",
     "position": None,
@@ -33,7 +33,7 @@ table_1 = {
     "tableUrl": "https://docs.google.com/spreadsheets/d/1mOdWylUHkB8SrBND8HQyPcK2po8QYdHQ0G_27Rvh2jU/edit?resourcekey#gid=1186562930",
     "creationDate": "2012-04-23T18:25:43.511Z",
     "message": "Произошли измениния в таблице \"ИДЗ 0999\"",
-    "columName": "A3"
+    "columnName": "A3"
 }
 
 table_2 = {
@@ -42,7 +42,7 @@ table_2 = {
     "tableUrl": "https://docs.google.com/spreadsheets/d/1mOdWylUHkB8Shsidgodigdiodhgidogod=drgxgd",
     "creationDate": "2012-04-23T18:25:43.511Z",
     "message": "Произошло что-то ужасное в \"ИДЗ 666\"",
-    "columName": "A4"
+    "columnName": "A4"
 }
 
 log_1 = {

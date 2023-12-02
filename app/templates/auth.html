@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Вход</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+</head>
+
+<body>
+  
+
+<div class="w3-card-4 w3-display-middle" style="width: 30%">
+  <div class="w3-container w3-blue  ">
+    <h2>Авторизация</h2>
+  </div>
+  <form class="w3-container " id="myForm">
+    <p>      
+    <label><b>Логин</b></label>
+    <input class="w3-input w3-border w3-sand" id="login" type="text"></p>
+    <p>      
+    <label><b>Пароль</b></label>
+    <input class="w3-input w3-border w3-sand" id="password" type="text"></p>
+    <p>
+    <button onclick="my_click()" type="button"  class="w3-btn w3-blue">Вход</button></p>
+    </from>
+</div>
+
+
+<script>
+  function my_click() {
+  var formData = JSON.stringify({"login": $("#login").val(), "password": $("#password").val()});
+  console.log(formData);
+
+
+  $.ajax({
+    type: "POST",
+    url: "/token",
+    data: formData,
+    success: function(data) {
+          // Здесь вы можете обработать данные, отправленные сервером
+          console.log(data);
+          },
+    dataType: "json",
+    contentType : "application/json"
+    });
+
+  }
+
+  function success_auth(data){
+    console.log(data);
+  }
+  
+  </script>
+</body>
+</html> 

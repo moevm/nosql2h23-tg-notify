@@ -2,7 +2,8 @@ from fastapi import FastAPI
 
 from app.routers import (
     UserRouter,
-    AuthRouter
+    AuthRouter,
+    LogRouter
 )
 
 app = FastAPI(
@@ -14,3 +15,4 @@ app = FastAPI(
 
 app.include_router(AuthRouter.router)
 app.include_router(UserRouter.router)
+app.include_router(LogRouter.router)

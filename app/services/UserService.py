@@ -19,3 +19,7 @@ class UserService:
     @staticmethod
     def get_all_users() -> List[User]:
         return db.Users.get_all()
+
+    @staticmethod
+    def get_all_teachers() -> List[User]:
+        return db.Users.get_all_teachers()

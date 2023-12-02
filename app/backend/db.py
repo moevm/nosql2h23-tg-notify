@@ -34,7 +34,6 @@ class UsersCollection:
         return User(**user_json)
 
     def get_all(self) -> List[User]:
-
         list_users = []
         cursor_users = self.collection.find()
 
@@ -42,6 +41,15 @@ class UsersCollection:
             list_users.append(User(**u))
 
         return list_users
+
+    def get_all_teachers(self):
+        list_teachers = []
+        teachers = self.collection.find({"role": "Teacher"})
+
+        for t in teachers:
+            list_teachers.append(User(**t))
+
+        return list_teachers
 
     def insert(self, user: User):
         self.collection.insert_one(user.model_dump(by_alias=True, exclude=["id"]))

@@ -28,3 +28,14 @@ async def get_user(user_id: str):
 )
 async def get_all_users():
     return UserService.get_all_users()
+
+
+@router.get(
+    "/teachers/",
+    # dependencies=[Depends(AuthService.validate_token)], <- проверка на токен
+    response_description="Получить всех учителей",
+    response_model=List[User],
+    response_model_by_alias=False,
+)
+async def get_all_teachers():
+    return UserService.get_all_teachers()

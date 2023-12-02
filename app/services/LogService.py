@@ -9,7 +9,7 @@ from app.models import Log
 class LogService:
     @staticmethod
     def get_log(log_id: str) -> Log:
-        log = db.Logs.get_by_id(log_id)
+        log = db.Logs.find_by_id(log_id)
 
         if log is not None:
             return log
@@ -18,4 +18,4 @@ class LogService:
 
     @staticmethod
     def get_all_logs() -> List[Log]:
-        return db.Logs.get_all()
+        return db.Logs.find_all()

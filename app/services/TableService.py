@@ -9,7 +9,7 @@ from app.models import Table
 class TableService:
     @staticmethod
     def get_table(table_id: str) -> Table:
-        table = db.Tables.get_by_id(table_id)
+        table = db.Tables.find_by_id(table_id)
 
         if table is not None:
             return table
@@ -18,4 +18,4 @@ class TableService:
 
     @staticmethod
     def get_all_tables() -> List[Table]:
-        return db.Tables.get_all()
+        return db.Tables.find_all()

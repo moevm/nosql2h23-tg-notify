@@ -23,33 +23,45 @@ class UsersCollection:
     def __init__(self, collection):
         self.collection = collection
 
-    def get_by_id(self, user_id: str) -> User:
-        user_json = self.collection.find_one({"_id": ObjectId(user_id)})
+    def find_by_id(self, user_id: str) -> User | None:
+        user = self.collection.find_one({"_id": ObjectId(user_id)})
 
-        return User(**user_json)
+        if user is None:
+            return user
 
-    def get_by_login(self, login: str) -> User:
-        user_json = self.collection.find_one({"login": login})
+        return User(**user)
 
-        return User(**user_json)
+    def find_by_login(self, login: str) -> User | None:
+        user = self.collection.find_one({"login": login})
 
-    def get_all(self) -> List[User]:
-        list_users = []
-        cursor_users = self.collection.find()
+        if user is None:
+            return user
 
-        for u in cursor_users:
-            list_users.append(User(**u))
+        return User(**user)
 
-        return list_users
+    def find_by_username(self, username: str) -> User | None:
+        user = self.collection.find_one({"username": username})
 
-    def get_all_teachers(self):
-        list_teachers = []
+        if user is None:
+            return user
+
+        return User(**user)
+
+    def find_all(self) -> List[User]:
+        users = self.collection.find()
+
+        if not users:
+            return users
+
+        return self.create_json(users)
+
+    def find_all_teachers(self) -> List[User]:
         teachers = self.collection.find({"role": "Teacher"})
 
-        for t in teachers:
-            list_teachers.append(User(**t))
+        if not teachers:
+            return teachers
 
-        return list_teachers
+        return self.create_json(teachers)
 
     def insert(self, user: User):
         self.collection.insert_one(user.model_dump(by_alias=True, exclude=["id"]))
@@ -57,24 +69,35 @@ class UsersCollection:
     def delete(self, user_id: str):
         self.collection.delete_one({"_id": ObjectId(user_id)})
 
+    @staticmethod
+    def create_json(users: []):
+        res_list = []
+
+        for u in users:
+            res_list.append(User(**u))
+
+        return res_list
+
 
 class TablesCollection:
     def __init__(self, collection):
         self.collection = collection
 
-    def get_by_id(self, table_id: str) -> Table:
-        table_json = self.collection.find_one({"_id": ObjectId(table_id)})
+    def find_by_id(self, table_id: str) -> Table | None:
+        table = self.collection.find_one({"_id": ObjectId(table_id)})
 
-        return Table(**table_json)
+        if table is None:
+            return table
 
-    def get_all(self) -> List[Table]:
-        list_tables = []
-        cursor_tables = self.collection.find()
+        return Table(**table)
 
-        for t in cursor_tables:
-            list_tables.append(Table(**t))
+    def find_all(self) -> List[Table]:
+        tables = self.collection.find()
 
-        return list_tables
+        if not tables:
+            return tables
+
+        return self.create_json(tables)
 
     def insert(self, table: Table):
         self.collection.insert_one(table.model_dump(by_alias=True, exclude=["id"]))
@@ -82,31 +105,51 @@ class TablesCollection:
     def delete(self, table_id: str):
         self.collection.delete_one({"_id": ObjectId(table_id)})
 
+    @staticmethod
+    def create_json(tables: []):
+        res_list = []
+
+        for t in tables:
+            res_list.append(Table(**t))
+
+        return res_list
+
 
 class LogsCollection:
     def __init__(self, collection):
         self.collection = collection
 
-    def get_by_id(self, table_id: str) -> Log:
-        log_json = self.collection.find_one({"_id": ObjectId(table_id)})
+    def find_by_id(self, table_id: str) -> Log | None:
+        log = self.collection.find_one({"_id": ObjectId(table_id)})
 
-        return Log(**log_json)
+        if log is None:
+            return log
+
+        return Log(**log)
 
     # TODO сделать ограничение на кол-во
-    def get_all(self) -> List[Log]:
-        list_logs = []
-        cursor_logs = self.collection.find()
+    def find_all(self) -> List[Log]:
+        logs = self.collection.find()
 
-        for l in cursor_logs:
-            list_logs.append(Log(**l))
+        if not logs:
+            return logs
 
-        return list_logs
+        return self.create_json(logs)
 
     def insert(self, log: Log):
         self.collection.insert_one(log.model_dump(by_alias=True, exclude=["id"]))
 
     def delete(self, log_id: str):
         self.collection.delete_one({"_id": ObjectId(log_id)})
+
+    @staticmethod
+    def create_json(logs: []):
+        res_list = []
+
+        for l in logs:
+            res_list.append(Log(**l))
+
+        return res_list
 
 
 db = MongoDB(DB_NAME, DB_USERNAME, DB_PASSWORD, DB_HOST, DB_PORT)

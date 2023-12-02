@@ -9,7 +9,7 @@ from app.models import User
 class UserService:
     @staticmethod
     def get_user(user_id: str) -> User:
-        user = db.Users.get_by_id(user_id)
+        user = db.Users.find_by_id(user_id)
 
         if user is not None:
             return user
@@ -18,8 +18,8 @@ class UserService:
 
     @staticmethod
     def get_all_users() -> List[User]:
-        return db.Users.get_all()
+        return db.Users.find_all()
 
     @staticmethod
     def get_all_teachers() -> List[User]:
-        return db.Users.get_all_teachers()
+        return db.Users.find_all_teachers()

@@ -10,6 +10,7 @@ from app.const import USER_TAGS
 from app.models.User import User
 from app.requests.AddTeacherRequest import AddTeacherRequest
 from app.services.UserService import UserService
+from app.services.AuthService import AuthService
 
 
 router = APIRouter(prefix="/user", tags=USER_TAGS)
@@ -27,7 +28,7 @@ async def get_user(user_id: str):
 
 @router.get(
     "/users/",
-    dependencies=[Depends(AuthService.validate_token)], #<- проверка на токен
+    # dependencies=[Depends(AuthService.validate_token)], # <- проверка на токен
     response_description="Получить всех пользователей",
     response_model=List[User],
     response_model_by_alias=False,
@@ -38,7 +39,7 @@ async def get_all_users():
 
 @router.get(
     "/teachers/",
-    # dependencies=[Depends(AuthService.validate_token)], <- проверка на токен
+    # dependencies=[Depends(AuthService.validate_token)], # <- проверка на токен
     response_description="Получить всех учителей",
     response_model=List[User],
     response_model_by_alias=False,

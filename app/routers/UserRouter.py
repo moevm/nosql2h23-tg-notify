@@ -2,13 +2,15 @@ from typing import List
 
 from fastapi import (
     APIRouter,
-    Body
+    Body,
+    Depends
 )
 
 from app.const import USER_TAGS
 from app.models.User import User
 from app.requests.AddTeacherRequest import AddTeacherRequest
 from app.services.UserService import UserService
+
 
 router = APIRouter(prefix="/user", tags=USER_TAGS)
 
@@ -25,7 +27,7 @@ async def get_user(user_id: str):
 
 @router.get(
     "/users/",
-    # dependencies=[Depends(AuthService.validate_token)], <- проверка на токен
+    dependencies=[Depends(AuthService.validate_token)], #<- проверка на токен
     response_description="Получить всех пользователей",
     response_model=List[User],
     response_model_by_alias=False,

@@ -1,9 +1,11 @@
+from datetime import datetime
 from typing import List
 
 from fastapi import HTTPException
 
+from app.requests.AddTeacherRequest import AddTeacherRequest
 from app.backend.db import db
-from app.models import User
+from app.models.User import User
 
 
 class UserService:
@@ -34,3 +36,16 @@ class UserService:
             return db.Users.find_users_by_userTg(data)
         else:
             raise HTTPException(status_code=400, detail="Invalid sorting field")
+
+    @staticmethod
+    def add_teacher(request: AddTeacherRequest) -> User:
+        user = User(
+            userTg=request.userTg,
+            username=request.username,
+            position=request.position,
+            role="Teacher",
+            creationDate=datetime.utcnow()
+        )
+        db.Users.insert(user)
+
+        return user

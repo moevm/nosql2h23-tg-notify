@@ -3,7 +3,7 @@ from typing import List
 from fastapi import HTTPException
 
 from app.backend.db import db
-from app.models import Log
+from app.models.Log import Log
 
 
 class LogService:

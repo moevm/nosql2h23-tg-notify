@@ -1,11 +1,13 @@
 from typing import List
 
 from fastapi import (
-    APIRouter
+    APIRouter,
+    Body
 )
 
 from app.const import USER_TAGS
 from app.models.User import User
+from app.requests.AddTeacherRequest import AddTeacherRequest
 from app.services.UserService import UserService
 
 router = APIRouter(prefix="/user", tags=USER_TAGS)
@@ -51,3 +53,13 @@ async def get_all_teachers():
 )
 async def search_teachers(sorting_field: str, data: str):
     return UserService.search_teachers(sorting_field, data)
+
+
+@router.post(
+    "/addTeacher/",
+    response_description="Добавить преподователя",
+    response_model=User,
+    response_model_by_alias=False
+)
+async def add_teacher(request: AddTeacherRequest = Body(...)):
+    return UserService.add_teacher(request)

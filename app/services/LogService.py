@@ -19,3 +19,16 @@ class LogService:
     @staticmethod
     def get_all_logs() -> List[Log]:
         return db.Logs.find_all()
+
+    @staticmethod
+    def search_logs(sorting_field: str, data: str) -> List[Log]:
+        if sorting_field == "Дате":
+            return db.Logs.find_by_date(data)
+        elif sorting_field == "Действию":
+            return db.Logs.find_by_action(data)
+        elif sorting_field == "Пользователю":
+            return db.Logs.find_by_adminId(data)
+        elif sorting_field == "Таблице":
+            return db.Logs.find_by_tableId(data)
+        else:
+            raise HTTPException(status_code=400, detail="Invalid sorting field")

@@ -167,6 +167,38 @@ class LogsCollection:
 
         return Log(**log)
 
+    def find_by_date(self, date: str) -> List[Log]:
+        logs = self.collection.find({"changeDate": date})
+
+        if not logs:
+            return logs
+
+        return self.create_json(logs)
+
+    def find_by_action(self, action: str) -> List[Log]:
+        logs = self.collection.find({"action": action})
+
+        if not logs:
+            return logs
+
+        return self.create_json(logs)
+
+    def find_by_tableId(self, tableId: str) -> List[Log]:
+        logs = self.collection.find({"tableId": tableId})
+
+        if not logs:
+            return logs
+
+        return self.create_json(logs)
+
+    def find_by_adminId(self, adminId: str) -> List[Log]:
+        logs = self.collection.find({"adminId": adminId})
+
+        if not logs:
+            return logs
+
+        return self.create_json(logs)
+
     # TODO сделать ограничение на кол-во
     def find_all(self) -> List[Log]:
         logs = self.collection.find()

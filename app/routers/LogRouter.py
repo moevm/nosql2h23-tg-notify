@@ -29,3 +29,13 @@ async def get_log(log_id: str):
 )
 async def get_all_logs():
     return LogService.get_all_logs()
+
+
+@router.get(
+    "/search/",
+    response_description="Поиск логов по полю",
+    response_model=List[Log],
+    response_model_by_alias=False
+)
+async def search_logs(sorting_field: str, data: str):
+    return LogService.search_logs(sorting_field, data)

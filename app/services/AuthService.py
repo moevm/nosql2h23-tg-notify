@@ -29,6 +29,9 @@ class AuthService:
         user_login = request.login
         user = db.Users.find_by_login(user_login)
 
+        if user is None:
+            raise HTTPException(status_code=404, detail="User not found")
+
         if user.password is None:
             raise HTTPException(status_code=401, detail="Incorrect password")
         else:

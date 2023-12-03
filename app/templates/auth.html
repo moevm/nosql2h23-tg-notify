@@ -21,7 +21,9 @@
     <p>      
     <label><b>Пароль</b></label>
     <input class="w3-input w3-border w3-sand" id="password" type="text"></p>
-    <p>
+    <p>    
+    <label class="w3-text-red" style="display: none" id="label_unauth">* неверный логин или пароль</label></p>
+    <p>  
     <button onclick="my_click()" type="button"  class="w3-btn w3-blue">Вход</button></p>
     </from>
 </div>
@@ -37,10 +39,31 @@
     type: "POST",
     url: "/token",
     data: formData,
+
     success: function(data) {
-          // Здесь вы можете обработать данные, отправленные сервером
           console.log(data);
+
+          $.ajax({
+            type: "GET",
+            url: "/user/users/",
+            headers: {"Authorization": data.access_token},
+            success: (data) => {console.log(data) }
+          })
           },
+
+    error: function(request,status,errorThrown) {
+        if (errorThrown === "Unauthorized") {
+          $("#login").val("");
+          $("#password").val("");
+          $("#login").focus();
+          $("#label_unauth").show();
+
+          $("#login").attr("class", "w3-input  w3-border w3-border-red w3-khaki");
+          $("#password").attr("class", "w3-input  w3-border w3-border-red w3-khaki");
+        }
+
+    },
+
     dataType: "json",
     contentType : "application/json"
     });
@@ -49,6 +72,7 @@
 
   function success_auth(data){
     console.log(data);
+
   }
   
   </script>

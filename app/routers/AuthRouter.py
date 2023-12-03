@@ -14,6 +14,10 @@ from app.services.AuthService import AuthService
 router = APIRouter(prefix="" + AUTH_URL, tags=AUTH_TAGS)
 
 
-@router.post("", response_model=TokenResponse)
+@router.post(
+    "",
+    response_model=TokenResponse,
+    response_description="Авторизация пользователя"
+)
 async def authenticate_user(request: AuthRequest = Body(...)) -> TokenResponse | None:
     return AuthService.authenticate_user(request)

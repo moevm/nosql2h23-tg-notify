@@ -23,3 +23,14 @@ class UserService:
     @staticmethod
     def get_all_teachers() -> List[User]:
         return db.Users.find_all_teachers()
+
+    @staticmethod
+    def search_teachers(sorting_field: str, data: str) -> List[User]:
+        if sorting_field == "ФИО":
+            return db.Users.find_users_by_username(data)
+        elif sorting_field == "Должности":
+            return db.Users.find_users_by_position(data)
+        elif sorting_field == "Никнейму Телеграмм":
+            return db.Users.find_users_by_userTg(data)
+        else:
+            raise HTTPException(status_code=400, detail="Invalid sorting field")

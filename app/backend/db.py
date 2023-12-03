@@ -39,13 +39,29 @@ class UsersCollection:
 
         return User(**user)
 
-    def find_by_username(self, username: str) -> User | None:
-        user = self.collection.find_one({"username": username})
+    def find_users_by_username(self, username: str) -> List[User]:
+        users = self.collection.find({"username": username})
 
-        if user is None:
-            return user
+        if not users:
+            return users
 
-        return User(**user)
+        return self.create_json(users)
+
+    def find_users_by_position(self, position: str) -> List[User]:
+        users = self.collection.find({"position": position})
+
+        if not users:
+            return users
+
+        return self.create_json(users)
+
+    def find_users_by_userTg(self, userTg: str) -> List[User]:
+        users = self.collection.find({"userTg": userTg})
+
+        if not users:
+            return users
+
+        return self.create_json(users)
 
     def find_all(self) -> List[User]:
         users = self.collection.find()

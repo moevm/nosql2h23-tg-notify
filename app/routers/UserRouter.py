@@ -1,10 +1,11 @@
 from typing import List
 
-from fastapi import APIRouter
+from fastapi import (
+    APIRouter
+)
 
 from app.models.User import User
 from app.services.UserService import UserService
-from app.services.AuthService import AuthService
 
 router = APIRouter(prefix="/user")
 
@@ -39,3 +40,13 @@ async def get_all_users():
 )
 async def get_all_teachers():
     return UserService.get_all_teachers()
+
+
+@router.get(
+    "/search/",
+    response_description="Поиск преподователей по полю",
+    response_model=List[User],
+    response_model_by_alias=False
+)
+async def search_teachers(sorting_field: str, data: str):
+    return UserService.search_teachers(sorting_field, data)

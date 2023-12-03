@@ -19,3 +19,14 @@ class TableService:
     @staticmethod
     def get_all_tables() -> List[Table]:
         return db.Tables.find_all()
+
+    @staticmethod
+    def search_tables(sorting_field: str, data: str) -> List[Table]:
+        if sorting_field == "Названию таблицы":
+            return db.Tables.find_by_tableName(data)
+        elif sorting_field == "Ссылке":
+            return db.Tables.find_by_url(data)
+        elif sorting_field == "Дате создания":
+            return db.Tables.find_by_date(data)
+        else:
+            raise HTTPException(status_code=400, detail="Invalid sorting field")

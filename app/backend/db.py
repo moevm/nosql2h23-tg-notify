@@ -107,6 +107,30 @@ class TablesCollection:
 
         return Table(**table)
 
+    def find_by_tableName(self, tableName: str) -> List[Table]:
+        tables = self.collection.find({"tableName": tableName})
+
+        if not tables:
+            return tables
+
+        return self.create_json(tables)
+
+    def find_by_url(self, url: str) -> List[Table]:
+        tables = self.collection.find({"tableUrl": url})
+
+        if not tables:
+            return tables
+
+        return self.create_json(tables)
+
+    def find_by_date(self, date: str) -> List[Table]:
+        tables = self.collection.find({"creationDate": date})
+
+        if not tables:
+            return tables
+
+        return self.create_json(tables)
+
     def find_all(self) -> List[Table]:
         tables = self.collection.find()
 

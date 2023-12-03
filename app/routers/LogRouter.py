@@ -2,11 +2,12 @@ from typing import List
 
 from fastapi import APIRouter
 
+from app.const import LOG_TAGS
 from app.models.Log import Log
 from app.services.LogService import LogService
 from app.services.AuthService import AuthService
 
-router = APIRouter(prefix="/log")
+router = APIRouter(prefix="/log", tags=LOG_TAGS)
 
 
 @router.get(

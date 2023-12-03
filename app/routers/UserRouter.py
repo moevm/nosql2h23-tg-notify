@@ -4,10 +4,11 @@ from fastapi import (
     APIRouter
 )
 
+from app.const import USER_TAGS
 from app.models.User import User
 from app.services.UserService import UserService
 
-router = APIRouter(prefix="/user")
+router = APIRouter(prefix="/user", tags=USER_TAGS)
 
 
 @router.get(

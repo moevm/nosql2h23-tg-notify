@@ -7,6 +7,9 @@ from typing import (
 from fastapi.security import APIKeyHeader
 
 AUTH_TAGS: Final[List[str | Enum] | None] = ["Authentication"]
+USER_TAGS: Final[List[str | Enum] | None] = ["User"]
+TABLE_TAGS: Final[List[str | Enum] | None] = ["Table"]
+LOG_TAGS: Final[List[str | Enum] | None] = ["Log"]
 AUTH_URL: Final = "/token"
 
 TOKEN_EXPIRE_MINUTES: Final = 60

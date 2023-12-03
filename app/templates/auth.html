@@ -52,7 +52,7 @@
           },
 
     error: function(request,status,errorThrown) {
-        if (errorThrown === "Unauthorized") {
+        if (errorThrown === "Unauthorized" || errorThrown === "Not Found") {
           $("#login").val("");
           $("#password").val("");
           $("#login").focus();

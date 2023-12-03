@@ -6,6 +6,8 @@ from app.routers import (
     UserRouter,
     AuthRouter,
     PageRouter
+    LogRouter,
+    TableRouter
 )
 
 app = FastAPI(
@@ -18,10 +20,8 @@ app = FastAPI(
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 
-print("http://127.0.0.1:8000/docs")
-#uvicorn app.main:app
-
-
 app.include_router(AuthRouter.router)
 app.include_router(UserRouter.router)
 app.include_router(PageRouter.router)
+app.include_router(LogRouter.router)
+app.include_router(TableRouter.router)

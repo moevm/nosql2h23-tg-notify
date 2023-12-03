@@ -27,7 +27,10 @@ class AuthService:
     @staticmethod
     def authenticate_user(request: AuthRequest = Body(...)) -> TokenResponse | None:
         user_login = request.login
-        user = db.Users.get_by_login(user_login)
+        user = db.Users.find_by_login(user_login)
+
+        if user is None:
+            raise HTTPException(status_code=404, detail="User not found")
 
         if user.password is None:
             raise HTTPException(status_code=401, detail="Incorrect password")
@@ -78,7 +81,7 @@ class AuthService:
             if login is None:
                 raise HTTPException(status_code=401, detail="Invalid credentials")
 
-            user = db.Users.get_by_login(login)
+            user = db.Users.find_by_login(login)
             if login != user.login:
                 raise HTTPException(status_code=401, detail="Invalid token")
 

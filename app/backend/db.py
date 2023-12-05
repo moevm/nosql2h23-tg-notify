@@ -82,6 +82,9 @@ class UsersCollection:
     def insert(self, user: User):
         self.collection.insert_one(user.model_dump(by_alias=True, exclude=["id"]))
 
+    def update(self, user: User):
+        self.collection.update_one({"_id": ObjectId(user.id)}, {"$set": user.model_dump(by_alias=True, exclude=["id"])})
+
     def delete(self, user_id: str):
         self.collection.delete_one({"_id": ObjectId(user_id)})
 

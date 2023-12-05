@@ -3,9 +3,11 @@ from typing import List
 
 from fastapi import HTTPException
 
-from app.requests.AddTeacherRequest import AddTeacherRequest
 from app.backend.db import db
 from app.models.User import User
+from app.requests.AddTeacherRequest import AddTeacherRequest
+from app.requests.EditProfileRequest import EditProfileRequest
+from app.services.AuthService import AuthService
 
 
 class UserService:
@@ -47,5 +49,16 @@ class UserService:
             creationDate=datetime.utcnow()
         )
         db.Users.insert(user)
+
+        return user
+
+    @staticmethod
+    def edit_profile(request: EditProfileRequest) -> User:
+        user = db.Users.find_by_id(request.user_id)
+        user.login = request.login
+        user.password = AuthService.bcrypt(request.password)
+        user.username = request.username
+        user.photoUrl = request.photoUrl
+        db.Users.update(user)
 
         return user

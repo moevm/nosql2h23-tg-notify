@@ -9,6 +9,7 @@ from fastapi import (
 from app.const import USER_TAGS
 from app.models.User import User
 from app.requests.AddTeacherRequest import AddTeacherRequest
+from app.requests.EditProfileRequest import EditProfileRequest
 from app.services.UserService import UserService
 from app.services.AuthService import AuthService
 
@@ -66,3 +67,13 @@ async def search_teachers(sorting_field: str, data: str):
 )
 async def add_teacher(request: AddTeacherRequest = Body(...)):
     return UserService.add_teacher(request)
+
+
+@router.post(
+    "/editProfile/",
+    response_description="Изменить данные профиля",
+    response_model=User,
+    response_model_by_alias=False
+)
+async def edit_profile(request: EditProfileRequest = Body(...)):
+    return UserService.edit_profile(request)

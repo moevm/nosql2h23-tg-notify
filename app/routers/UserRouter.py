@@ -2,18 +2,15 @@ from typing import List
 
 from fastapi import (
     APIRouter,
-    Body,
-    Depends
+    Body
 )
 
 from app.const import USER_TAGS
 from app.models.User import User
-from app.requests.AddTeacherRequest import AddTeacherRequest
-from app.requests.EditAdminProfileRequest import EditAdminProfileRequest
-from app.requests.EditTeacherProfileRequest import EditTeacherProfileRequest
+from app.requests.user.AddTeacherRequest import AddTeacherRequest
+from app.requests.user.EditAdminProfileRequest import EditAdminProfileRequest
+from app.requests.user.EditTeacherProfileRequest import EditTeacherProfileRequest
 from app.services.UserService import UserService
-from app.services.AuthService import AuthService
-
 
 router = APIRouter(prefix="/user", tags=USER_TAGS)
 

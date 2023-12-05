@@ -10,5 +10,5 @@ class Log(BaseModel):
     id: Optional[PyObjectId] = Field(alias="_id", default=None)
     changeDate: datetime
     action: str
-    tableId: str
-    adminId: str
+    tableId: Optional[str] = None
+    adminId: Optional[str] = None

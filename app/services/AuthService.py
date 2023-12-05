@@ -15,7 +15,7 @@ from app.const import (
     TOKEN_EXPIRE_MINUTES
 )
 from app.const import apikey_scheme
-from app.requests.AuthRequest import AuthRequest
+from app.requests.auth.AuthRequest import AuthRequest
 from app.responses.TokenResponse import (
     TokenResponse
 )

@@ -7,7 +7,7 @@ from app.const import (
     AUTH_TAGS,
     AUTH_URL,
 )
-from app.requests.AuthRequest import AuthRequest
+from app.requests.auth.AuthRequest import AuthRequest
 from app.responses.TokenResponse import TokenResponse
 from app.services.AuthService import AuthService
 

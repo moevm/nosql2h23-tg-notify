@@ -5,7 +5,8 @@ from fastapi import APIRouter
 from app.const import TABLE_TAGS
 from app.models.Table import Table
 from app.services.TableService import TableService
-from app.services.AuthService import AuthService
+from app.requests.table.AddTableRequest import AddTableRequest
+from app.requests.table.EditTableRequest import EditTableRequest
 
 router = APIRouter(prefix="/table", tags=TABLE_TAGS)
 
@@ -39,3 +40,23 @@ async def get_all_tables():
 )
 async def search_tables(sorting_field: str, data: str):
     return TableService.search_tables(sorting_field, data)
+
+
+@router.post(
+    "/addTable/",
+    response_description="Добавление таблицы",
+    response_model=Table,
+    response_model_by_alias=False
+)
+async def add_table(request: AddTableRequest):
+    return TableService.add_table(request)
+
+
+@router.post(
+    "/editTable/",
+    response_description="Редактирование таблицы",
+    response_model=Table,
+    response_model_by_alias=False
+)
+async def edit_table(request: EditTableRequest):
+    return TableService.edit_table(request)

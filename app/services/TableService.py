@@ -1,9 +1,12 @@
+from datetime import datetime
 from typing import List
 
 from fastapi import HTTPException
 
 from app.backend.db import db
 from app.models.Table import Table
+from app.requests.table.AddTableRequest import AddTableRequest
+from app.requests.table.EditTableRequest import EditTableRequest
 
 
 class TableService:
@@ -30,3 +33,31 @@ class TableService:
             return db.Tables.find_by_date(data)
         else:
             raise HTTPException(status_code=400, detail="Invalid sorting field")
+
+    @staticmethod
+    def add_table(request: AddTableRequest) -> Table:
+        table = Table(
+            tableName=request.tableName,
+            tableUrl=request.tableUrl,
+            creationDate=datetime.utcnow(),
+            message=request.message,
+            columnName=request.columnName
+        )
+        db.Tables.insert(table)
+
+        return table
+
+    @staticmethod
+    def edit_table(request: EditTableRequest) -> Table:
+        table = db.Tables.find_by_id(request.table_id)
+
+        if table is None:
+            raise HTTPException(status_code=404, detail="Table not found")
+
+        table.tableName = request.tableName
+        table.tableUrl = request.tableUrl
+        table.message = request.message
+        table.columnName = request.columnName
+        db.Tables.update(table)
+
+        return table

@@ -9,7 +9,8 @@ from fastapi import (
 from app.const import USER_TAGS
 from app.models.User import User
 from app.requests.AddTeacherRequest import AddTeacherRequest
-from app.requests.EditProfileRequest import EditProfileRequest
+from app.requests.EditAdminProfileRequest import EditAdminProfileRequest
+from app.requests.EditTeacherProfileRequest import EditTeacherProfileRequest
 from app.services.UserService import UserService
 from app.services.AuthService import AuthService
 
@@ -70,10 +71,20 @@ async def add_teacher(request: AddTeacherRequest = Body(...)):
 
 
 @router.post(
-    "/editProfile/",
-    response_description="Изменить данные профиля",
+    "/editAdminProfile/",
+    response_description="Изменить данные профиля админа",
     response_model=User,
     response_model_by_alias=False
 )
-async def edit_profile(request: EditProfileRequest = Body(...)):
-    return UserService.edit_profile(request)
+async def edit_admin_profile(request: EditAdminProfileRequest = Body(...)):
+    return UserService.edit_admin_profile(request)
+
+
+@router.post(
+    "/editTeacherProfile/",
+    response_description="Изменить данные профиля преподавателя",
+    response_model=User,
+    response_model_by_alias=False
+)
+async def edit_teacher_profile(request: EditTeacherProfileRequest = Body(...)):
+    return UserService.edit_teacher_profile(request)

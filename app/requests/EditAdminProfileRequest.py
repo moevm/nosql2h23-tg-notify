@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-class EditProfileRequest(BaseModel):
+class EditAdminProfileRequest(BaseModel):
     user_id: str
     login: str
     password: str

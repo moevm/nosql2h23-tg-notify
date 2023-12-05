@@ -6,7 +6,8 @@ from fastapi import HTTPException
 from app.backend.db import db
 from app.models.User import User
 from app.requests.AddTeacherRequest import AddTeacherRequest
-from app.requests.EditProfileRequest import EditProfileRequest
+from app.requests.EditAdminProfileRequest import EditAdminProfileRequest
+from app.requests.EditTeacherProfileRequest import EditTeacherProfileRequest
 from app.services.AuthService import AuthService
 
 
@@ -53,12 +54,39 @@ class UserService:
         return user
 
     @staticmethod
-    def edit_profile(request: EditProfileRequest) -> User:
+    def edit_admin_profile(request: EditAdminProfileRequest) -> User:
         user = db.Users.find_by_id(request.user_id)
+
+        if user is None:
+            raise HTTPException(status_code=404, detail="User not found")
+
+        if user.role == "Teacher":
+            raise HTTPException(status_code=400, detail="Invalid user role")
+
         user.login = request.login
         user.password = AuthService.bcrypt(request.password)
         user.username = request.username
         user.photoUrl = request.photoUrl
+        db.Users.update(user)
+
+        return user
+
+    @staticmethod
+    def edit_teacher_profile(request: EditTeacherProfileRequest) -> User:
+        user = db.Users.find_by_id(request.user_id)
+
+        if user is None:
+            raise HTTPException(status_code=404, detail="User not found")
+
+        if user.role == "Admin":
+            raise HTTPException(status_code=400, detail="Invalid user role")
+
+        if request.userTg[0] != '@':
+            raise HTTPException(status_code=400, detail="Invalid userTg")
+
+        user.username = request.username
+        user.position = request.position
+        user.userTg = request.userTg
         db.Users.update(user)
 
         return user

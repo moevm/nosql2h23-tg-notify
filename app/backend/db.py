@@ -145,6 +145,9 @@ class TablesCollection:
     def insert(self, table: Table):
         self.collection.insert_one(table.model_dump(by_alias=True, exclude=["id"]))
 
+    def update(self, table: Table):
+        self.collection.update_one({"_id": ObjectId(table.id)}, {"$set": table.model_dump(by_alias=True, exclude=["id"])})
+
     def delete(self, table_id: str):
         self.collection.delete_one({"_id": ObjectId(table_id)})
 
@@ -210,6 +213,9 @@ class LogsCollection:
             return logs
 
         return self.create_json(logs)
+
+    def update(self, log: Log):
+        self.collection.update_one({"_id": ObjectId(log.id)}, {"$set": log.model_dump(by_alias=True, exclude=["id"])})
 
     def insert(self, log: Log):
         self.collection.insert_one(log.model_dump(by_alias=True, exclude=["id"]))

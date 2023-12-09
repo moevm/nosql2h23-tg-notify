@@ -85,3 +85,23 @@ async def edit_admin_profile(request: EditAdminProfileRequest = Body(...)):
 )
 async def edit_teacher_profile(request: EditTeacherProfileRequest = Body(...)):
     return UserService.edit_teacher_profile(request)
+
+
+@router.delete(
+    "/deleteTeacher/",
+    response_description="Удалить преподавателя",
+    response_model=User,
+    response_model_by_alias=False
+)
+async def delete_teacher(user_id: str):
+    return UserService.delete_teacher(user_id)
+
+
+@router.delete(
+    "/deleteTeachers/",
+    response_description="Удалить преподавателей",
+    response_model=List[User],
+    response_model_by_alias=False
+)
+async def delete_teachers(user_ids: List[str]):
+    return UserService.delete_teachers(user_ids)

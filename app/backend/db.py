@@ -88,6 +88,10 @@ class UsersCollection:
     def delete_by_id(self, user_id: str):
         self.collection.delete_one({"_id": ObjectId(user_id)})
 
+    def delete_many(self, user_ids: List[str]):
+        for user_id in user_ids:
+            self.delete_by_id(user_id)
+
     @staticmethod
     def create_json(users: []):
         res_list = []
@@ -151,7 +155,7 @@ class TablesCollection:
     def delete_by_id(self, table_id: str):
         self.collection.delete_one({"_id": ObjectId(table_id)})
 
-    def delete_many(self, table_ids: list):
+    def delete_many(self, table_ids: List[str]):
         for table_id in table_ids:
             self.delete_by_id(table_id)
 

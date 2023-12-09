@@ -90,3 +90,35 @@ class UserService:
         db.Users.update(user)
 
         return user
+
+    @staticmethod
+    def delete_teacher(user_id: str) -> User:
+        user = db.Users.find_by_id(user_id)
+
+        if user is None:
+            raise HTTPException(status_code=404, detail="User not found")
+
+        if user.role == "Admin":
+            raise HTTPException(status_code=400, detail="Invalid user role")
+
+        db.Users.delete_by_id(user_id)
+
+        return user
+
+    @staticmethod
+    def delete_teachers(user_ids: List[str]) -> List[User]:
+        res = []
+        for user_id in user_ids:
+            user = db.Users.find_by_id(user_id)
+
+            if user is None:
+                raise HTTPException(status_code=404, detail=f"User {user_id} not found")
+
+            if user.role == "Admin":
+                raise HTTPException(status_code=400, detail=f"Invalid {user_id} user role")
+
+            res.append(user)
+
+        db.Users.delete_many(user_ids)
+
+        return res

@@ -52,7 +52,7 @@ async def add_table(request: AddTableRequest):
     return TableService.add_table(request)
 
 
-@router.post(
+@router.put(
     "/editTable/",
     response_description="Редактирование таблицы",
     response_model=Table,
@@ -60,3 +60,24 @@ async def add_table(request: AddTableRequest):
 )
 async def edit_table(request: EditTableRequest):
     return TableService.edit_table(request)
+
+
+@router.delete(
+    "/deleteTable/",
+    response_description="Удаление таблицы",
+    response_model=Table,
+    response_model_by_alias=False
+)
+async def delete_table(table_id: str):
+    return TableService.delete_table(table_id)
+
+
+@router.delete(
+    "/deleteTables/",
+    response_description="Удаление таблиц",
+    response_model=List[Table],
+    response_model_by_alias=False
+)
+async def delete_tables(table_ids: List[str]):
+    return TableService.delete_tables(table_ids)
+

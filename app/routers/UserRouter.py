@@ -67,7 +67,7 @@ async def add_teacher(request: AddTeacherRequest = Body(...)):
     return UserService.add_teacher(request)
 
 
-@router.post(
+@router.put(
     "/editAdminProfile/",
     response_description="Изменить данные профиля админа",
     response_model=User,
@@ -77,7 +77,7 @@ async def edit_admin_profile(request: EditAdminProfileRequest = Body(...)):
     return UserService.edit_admin_profile(request)
 
 
-@router.post(
+@router.put(
     "/editTeacherProfile/",
     response_description="Изменить данные профиля преподавателя",
     response_model=User,

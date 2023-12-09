@@ -61,3 +61,30 @@ class TableService:
         db.Tables.update(table)
 
         return table
+
+    @staticmethod
+    def delete_table(table_id: str) -> Table:
+        table = db.Tables.find_by_id(table_id)
+
+        if table is None:
+            raise HTTPException(status_code=404, detail="Table not found")
+
+        db.Tables.delete_by_id(table_id)
+
+        return table
+
+    @staticmethod
+    def delete_tables(table_ids: List[str]) -> List[Table]:
+        res = []
+        for table_id in table_ids:
+            table = db.Tables.find_by_id(table_id)
+
+            if table is None:
+                raise HTTPException(status_code=404, detail=f"Table {table_id} not found")
+
+            res.append(table)
+
+        db.Tables.delete_many(table_ids)
+
+        return res
+

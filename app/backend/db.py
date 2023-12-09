@@ -85,7 +85,7 @@ class UsersCollection:
     def update(self, user: User):
         self.collection.update_one({"_id": ObjectId(user.id)}, {"$set": user.model_dump(by_alias=True, exclude=["id"])})
 
-    def delete(self, user_id: str):
+    def delete_by_id(self, user_id: str):
         self.collection.delete_one({"_id": ObjectId(user_id)})
 
     @staticmethod
@@ -148,8 +148,12 @@ class TablesCollection:
     def update(self, table: Table):
         self.collection.update_one({"_id": ObjectId(table.id)}, {"$set": table.model_dump(by_alias=True, exclude=["id"])})
 
-    def delete(self, table_id: str):
+    def delete_by_id(self, table_id: str):
         self.collection.delete_one({"_id": ObjectId(table_id)})
+
+    def delete_many(self, table_ids: list):
+        for table_id in table_ids:
+            self.delete_by_id(table_id)
 
     @staticmethod
     def create_json(tables: []):
@@ -220,7 +224,7 @@ class LogsCollection:
     def insert(self, log: Log):
         self.collection.insert_one(log.model_dump(by_alias=True, exclude=["id"]))
 
-    def delete(self, log_id: str):
+    def delete_by_id(self, log_id: str):
         self.collection.delete_one({"_id": ObjectId(log_id)})
 
     @staticmethod

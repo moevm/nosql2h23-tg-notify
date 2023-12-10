@@ -41,15 +41,11 @@
     data: formData,
 
     success: function(data) {
-          console.log(data);
+          sessionStorage.setItem('token',  data.access_token);
 
-          $.ajax({
-            type: "GET",
-            url: "/user/users/",
-            headers: {"Authorization": data.access_token},
-            success: (data) => {console.log(data) }
-          })
-          },
+          document.cookie = `token=${data.access_token}`;
+          window.location.href = '/page/tables';
+    },
 
     error: function(request,status,errorThrown) {
         if (errorThrown === "Unauthorized" || errorThrown === "Not Found") {

@@ -1,18 +1,20 @@
 from typing import List
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends, Query
 
 from app.const import TABLE_TAGS
 from app.models.Table import Table
-from app.services.TableService import TableService
 from app.requests.table.AddTableRequest import AddTableRequest
 from app.requests.table.EditTableRequest import EditTableRequest
+from app.services.AuthService import AuthService
+from app.services.TableService import TableService
 
 router = APIRouter(prefix="/table", tags=TABLE_TAGS)
 
 
 @router.get(
     "/{id}",
+    dependencies=[Depends(AuthService.validate_token)],
     response_description="Получить таблицу по id",
     response_model=Table,
     response_model_by_alias=False,
@@ -23,6 +25,17 @@ async def get_table(table_id: str):
 
 @router.get(
     "/tables/",
+    # dependencies=[Depends(AuthService.validate_token)],
+    response_description="Получить таблицы по id",
+    response_model=List[Table],
+    response_model_by_alias=False,
+)
+async def get_tables(table_ids: List[str] = Query(...)):
+    return TableService.get_tables(table_ids)
+
+
+@router.get(
+    "/AllTables/",
     # dependencies=[Depends(AuthService.validate_token)], <- проверка на токен
     response_description="Получить все таблицы",
     response_model=List[Table],

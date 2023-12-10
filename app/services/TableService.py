@@ -20,6 +20,19 @@ class TableService:
             raise HTTPException(status_code=404, detail="Table not found")
 
     @staticmethod
+    def get_tables(table_ids: List[str]) -> List[Table]:
+        res = []
+        for table_id in table_ids:
+            table = db.Tables.find_by_id(table_id)
+
+            if table is None:
+                raise HTTPException(status_code=404, detail=f"Table {table_id} not found")
+
+            res.append(table)
+
+        return res
+
+    @staticmethod
     def get_all_tables() -> List[Table]:
         return db.Tables.find_all()
 

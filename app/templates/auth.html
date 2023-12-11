@@ -43,7 +43,7 @@
     success: function(data) {
           sessionStorage.setItem('token',  data.access_token);
 
-          document.cookie = `token=${data.access_token}`;
+          document.cookie = `Authorization=${data.access_token}`;
           window.location.href = '/page/tables';
     },
 

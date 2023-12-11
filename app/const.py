@@ -5,6 +5,7 @@ from typing import (
 )
 
 from fastapi.security import APIKeyCookie
+from fastapi.security import APIKeyHeader
 
 AUTH_TAGS: Final[List[str | Enum] | None] = ["Authentication"]
 USER_TAGS: Final[List[str | Enum] | None] = ["User"]
@@ -17,4 +18,5 @@ TOKEN_EXPIRE_MINUTES: Final = 60
 
 TOKEN_ALGORITHM: Final = "HS256"
 
-apikey_scheme = APIKeyCookie(name="Authorization")
+apikey_scheme_page = APIKeyCookie(name="Authorization")
+apikey_scheme_request = APIKeyHeader(name="Authorization")

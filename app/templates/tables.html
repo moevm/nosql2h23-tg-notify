@@ -1,16 +1,11 @@
 {% extends "base.html" %}
 
 {% block head %}
-{% extends "base.html" %}
-
-{% block head %}
   <title>Таблицы</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-{% endblock %}
 
-{% block content %}
+
   <!-- загрузим дыннне с бд -->
   <script>
 
@@ -23,15 +18,21 @@
         type: "GET",
         url: "/table/AllTables/",
         contentType : "application/json",
-
+        headers: {"Authorization": sessionStorage.getItem("token")},
+        
         success: function(data) {
               window.curr_arr_tables = data; //массив всех таблиц
               window.flad_load_tables = true
         },
-    });
+        
+        error: function(request,status,errorThrown) {
+
+          $("body").html(`<h2> ${errorThrown}</h2>`);
+
+        }
+        });
 
   </script>
-
 {% endblock %}
 
 
@@ -136,15 +137,13 @@ style= "border-bottom-color: white;
 <script>
 
 window.onload = ()=> {
-  while (window.flad_load_tables === false){
+  var i = 0
+
+  while (window.flad_load_tables === false && i < 100){
+    console.log("wait")
+    i += 1
     setTimeout(()=> {}, 1000)
   } 
-
-  photo_url = sessionStorage.getItem('photo_url');
-
-  console.log(photo_url)
-
-  $('#avatar_img').attr('src', photo_url)
 
   update()
 }
@@ -157,7 +156,7 @@ function insert_pagination(){
   pagin_html = " <button  onclick=\"left_click()\" class=\"w3-bar-item w3-button  w3-border\">&laquo;</a>"   
 
   for(i = 1; i <= window.max_num_page; i++){
-    pagin_html += "<button  id=\"pagn_btn_"+ i + "\" class=\"w3-bar-item w3-button \" style=\"padding: 8.8px 16px\">" + i +"</a>"
+    pagin_html += "<button  id=\"pagn_btn_"+ i + "\" onclick=\"click_pagging_btn("+i+")\" class=\"w3-bar-item w3-button \" style=\"padding: 8.8px 16px\">" + i +"</a>"
     console.log(i)
   }
 
@@ -308,6 +307,18 @@ function update(){
   window.max_num_page = max_num_page //максимальное  количество страниц таблицы
   insert_pagination()
   insert_table_html(1)
+}
+
+
+function click_pagging_btn(n){
+  insert_table_html(n)
+
+
+  $('#pagn_btn_'+ window.curr_page ).removeClass('w3-blue')
+  $('#pagn_btn_'+ n).addClass('w3-blue')
+
+  window.curr_page = n
+
 }
 
 </script>

@@ -58,6 +58,7 @@
 
     success: function(data) {
           sessionStorage.setItem('token',  data.access_token);
+          sessionStorage.setItem('photo_url',  data.photo_url);
 
           document.cookie = `Authorization=${data.access_token}`;
           window.location.href = '/page/tables';

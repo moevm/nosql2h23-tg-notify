@@ -15,5 +15,5 @@ async def get_auth_page(request: Request):
 
 @router.get("/admin", response_class=HTMLResponse)
 async def get_auth_page(request: Request):
-    return templates.TemplateResponse("admin.html", {"request": request})
+    return templates.TemplateResponse("admin.html", {"request": request, "img_url":""})
     

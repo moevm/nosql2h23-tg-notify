@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>Профиль</title>
+{% endblock %}
+
+
+{% block content %}
+    <div class="w3-card-4 w3-display-middle" style="width: 30%">
+      <form class="w3-container " id="myForm">
+        <p>
+        <label><b>Логин</b></label>
+        <input class="w3-input w3-border w3-sand" id="login" type="text" value="some text"></p>
+        <p>
+        <label><b>Пароль</b></label>
+        <input class="w3-input w3-border w3-sand" id="password" type="password" value="some text"></p>
+        <a href="#" class="password-control" onclick="return show_hide_password(this);"></a>
+        <p>
+        <label><b>ФИО</b></label>
+        <input class="w3-input w3-border w3-sand" id="username" type="text" value="some text"></p>
+        <p>
+        <button onclick="my_click()" type="button"  class="w3-btn w3-gray">Назад</button>
+        <button onclick="my_click()" type="button"  class="w3-btn w3-blue" style="float: right">Применить</button></p>
+        </form>
+    </div>
+
+<style type="text/css">
+.password-control {
+	position: absolute;
+	top: 125px;
+	right: 25px;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	background: url(https://snipp.ru/demo/495/view.svg) 0 0 no-repeat;
+}
+.password-control.view {
+	background: url(https://snipp.ru/demo/495/no-view.svg) 0 0 no-repeat;
+}
+</style>
+
+<script>
+    function show_hide_password(target){
+        const input = document.getElementById('password');
+        if (input.getAttribute('type') === 'password') {
+            target.classList.add('view');
+            input.setAttribute('type', 'text');
+        } else {
+            target.classList.remove('view');
+            input.setAttribute('type', 'password');
+        }
+        return false;
+}
+</script>
+
+{% endblock %}
+
+

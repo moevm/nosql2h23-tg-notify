@@ -11,7 +11,7 @@ router = APIRouter(prefix="/log", tags=LOG_TAGS)
 
 
 @router.get(
-    "/{id}",
+    "",
     response_description="Получить лог по id",
     response_model=Log,
     response_model_by_alias=False,

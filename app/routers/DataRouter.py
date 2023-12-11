@@ -13,7 +13,7 @@ router = APIRouter(prefix="/data", tags=DATA_TAGS)
 
 @router.get(
     "/export",
-    dependencies=[Depends(AuthService.validate_token)],
+    dependencies=[Depends(AuthService.request_validate_token)],
     response_description="Экспорт данных бд",
     response_model=ExportResponse,
     response_model_by_alias=False,

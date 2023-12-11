@@ -19,8 +19,8 @@ router = APIRouter(prefix="/user", tags=USER_TAGS)
 
 
 @router.get(
-    "/{id}",
-    dependencies=[Depends(AuthService.validate_token)],
+    "",
+    dependencies=[Depends(AuthService.request_validate_token)],
     response_description="Получить пользователя по id",
     response_model=User,
     response_model_by_alias=False,
@@ -31,7 +31,7 @@ async def get_user(user_id: str):
 
 @router.get(
     "/users/",
-    dependencies=[Depends(AuthService.validate_token)],
+    dependencies=[Depends(AuthService.request_validate_token)],
     response_description="Получить пользователей по id",
     response_model=List[User],
     response_model_by_alias=False,
@@ -42,7 +42,7 @@ async def get_users(user_ids: List[str] = Query(...)):
 
 @router.get(
     "/AllUsers/",
-    dependencies=[Depends(AuthService.validate_token)],
+    dependencies=[Depends(AuthService.request_validate_token)],
     response_description="Получить всех пользователей",
     response_model=List[User],
     response_model_by_alias=False,
@@ -53,7 +53,7 @@ async def get_all_users():
 
 @router.get(
     "/teachers/",
-    dependencies=[Depends(AuthService.validate_token)],
+    dependencies=[Depends(AuthService.request_validate_token)],
     response_description="Получить всех учителей",
     response_model=List[User],
     response_model_by_alias=False,
@@ -64,7 +64,7 @@ async def get_all_teachers():
 
 @router.get(
     "/search/",
-    dependencies=[Depends(AuthService.validate_token)],
+    dependencies=[Depends(AuthService.request_validate_token)],
     response_description="Поиск преподователей по полю",
     response_model=List[User],
     response_model_by_alias=False
@@ -75,7 +75,7 @@ async def search_teachers(sorting_field: str, data: str):
 
 @router.post(
     "/addTeacher/",
-    dependencies=[Depends(AuthService.validate_token)],
+    dependencies=[Depends(AuthService.request_validate_token)],
     response_description="Добавить преподователя",
     response_model=User,
     response_model_by_alias=False
@@ -86,7 +86,7 @@ async def add_teacher(request: AddTeacherRequest = Body(...)):
 
 @router.put(
     "/editAdminProfile/",
-    dependencies=[Depends(AuthService.validate_token)],
+    dependencies=[Depends(AuthService.request_validate_token)],
     response_description="Изменить данные профиля админа",
     response_model=User,
     response_model_by_alias=False
@@ -97,7 +97,7 @@ async def edit_admin_profile(request: EditAdminProfileRequest = Body(...)):
 
 @router.put(
     "/editTeacherProfile/",
-    dependencies=[Depends(AuthService.validate_token)],
+    dependencies=[Depends(AuthService.request_validate_token)],
     response_description="Изменить данные профиля преподавателя",
     response_model=User,
     response_model_by_alias=False
@@ -108,7 +108,7 @@ async def edit_teacher_profile(request: EditTeacherProfileRequest = Body(...)):
 
 @router.delete(
     "/deleteTeacher/",
-    dependencies=[Depends(AuthService.validate_token)],
+    dependencies=[Depends(AuthService.request_validate_token)],
     response_description="Удалить преподавателя",
     response_model=User,
     response_model_by_alias=False
@@ -119,7 +119,7 @@ async def delete_teacher(user_id: str):
 
 @router.delete(
     "/deleteTeachers/",
-    dependencies=[Depends(AuthService.validate_token)],
+    dependencies=[Depends(AuthService.request_validate_token)],
     response_description="Удалить преподавателей",
     response_model=List[User],
     response_model_by_alias=False

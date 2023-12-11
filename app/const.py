@@ -4,16 +4,17 @@ from typing import (
     List,
 )
 
-from fastapi.security import APIKeyHeader
+from fastapi.security import APIKeyCookie
 
 AUTH_TAGS: Final[List[str | Enum] | None] = ["Authentication"]
 USER_TAGS: Final[List[str | Enum] | None] = ["User"]
 TABLE_TAGS: Final[List[str | Enum] | None] = ["Table"]
 LOG_TAGS: Final[List[str | Enum] | None] = ["Log"]
+DATA_TAGS: Final[List[str | Enum] | None] = ["Data"]
 AUTH_URL: Final = "/token"
 
 TOKEN_EXPIRE_MINUTES: Final = 60
 
 TOKEN_ALGORITHM: Final = "HS256"
 
-apikey_scheme = APIKeyHeader(name="Authorization")
+apikey_scheme = APIKeyCookie(name="Authorization")

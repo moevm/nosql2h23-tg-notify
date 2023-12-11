@@ -82,6 +82,11 @@ class UsersCollection:
     def insert(self, user: User):
         self.collection.insert_one(user.model_dump(by_alias=True, exclude=["id"]))
 
+    def export_users(self):
+        users = self.collection.find()
+
+        return users
+
     def update(self, user: User):
         self.collection.update_one({"_id": ObjectId(user.id)}, {"$set": user.model_dump(by_alias=True, exclude=["id"])})
 
@@ -148,6 +153,11 @@ class TablesCollection:
 
     def insert(self, table: Table):
         self.collection.insert_one(table.model_dump(by_alias=True, exclude=["id"]))
+
+    def export_tables(self):
+        tables = self.collection.find()
+
+        return tables
 
     def update(self, table: Table):
         self.collection.update_one({"_id": ObjectId(table.id)}, {"$set": table.model_dump(by_alias=True, exclude=["id"])})
@@ -224,6 +234,11 @@ class LogsCollection:
 
     def update(self, log: Log):
         self.collection.update_one({"_id": ObjectId(log.id)}, {"$set": log.model_dump(by_alias=True, exclude=["id"])})
+
+    def export_logs(self):
+        logs = self.collection.find()
+
+        return logs
 
     def insert(self, log: Log):
         self.collection.insert_one(log.model_dump(by_alias=True, exclude=["id"]))

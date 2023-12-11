@@ -18,15 +18,31 @@
     <p>      
     <label><b>Логин</b></label>
     <input class="w3-input w3-border w3-sand" id="login" type="text"></p>
-    <p>      
+    <p>
     <label><b>Пароль</b></label>
-    <input class="w3-input w3-border w3-sand" id="password" type="text"></p>
+    <input class="w3-input w3-border w3-sand" id="password" type="password"></p>
+    <a href="#" class="password-control" onclick="return show_hide_password(this);"></a>
     <p>    
     <label class="w3-text-red" style="display: none" id="label_unauth">* неверный логин или пароль</label></p>
     <p>  
     <button onclick="my_click()" type="button"  class="w3-btn w3-blue">Вход</button></p>
     </form>
 </div>
+
+<style type="text/css">
+.password-control {
+	position: absolute;
+	top: 190px;
+	right: 25px;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	background: url(https://snipp.ru/demo/495/view.svg) 0 0 no-repeat;
+}
+.password-control.view {
+	background: url(https://snipp.ru/demo/495/no-view.svg) 0 0 no-repeat;
+}
+</style>
 
 
 <script>
@@ -41,15 +57,12 @@
     data: formData,
 
     success: function(data) {
-          console.log(data);
+          sessionStorage.setItem('token',  data.access_token);
+          sessionStorage.setItem('photo_url',  data.photo_url);
 
-          $.ajax({
-            type: "GET",
-            url: "/user/users/",
-            headers: {"Authorization": data.access_token},
-            success: (data) => {console.log(data) }
-          })
-          },
+          document.cookie = `Authorization=${data.access_token}`;
+          window.location.href = '/page/tables';
+    },
 
     error: function(request,status,errorThrown) {
         if (errorThrown === "Unauthorized" || errorThrown === "Not Found") {
@@ -70,9 +83,16 @@
 
   }
 
-  function success_auth(data){
-    console.log(data);
-
+  function show_hide_password(target) {
+    const input = document.getElementById('password');
+    if (input.getAttribute('type') === 'password') {
+      target.classList.add('view');
+      input.setAttribute('type', 'text');
+    } else {
+      target.classList.remove('view');
+      input.setAttribute('type', 'password');
+    }
+    return false;
   }
   
   </script>

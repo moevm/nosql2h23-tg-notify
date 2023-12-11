@@ -24,9 +24,19 @@
     success: function(data) {
 
           window.curr_arr_tables = data; //массив всех таблиц
+
+          console.log("success")
           
           window.flad_load_tables = true
+
+          console.log(window.flad_load_tables)
           },
+
+    error: function(request,status,errorThrown) {
+
+          $("body").html(`<h2> ${errorThrown}</h2>`);
+        
+    }
 
     });
 
@@ -134,11 +144,32 @@ style= "border-bottom-color: white;
   </div>
   </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script>
 
 window.onload = ()=> {
-  while (window.flad_load_tables === false){
-    setTimeout(()=> {}, 300)
+  var i = 0
+
+  while (window.flad_load_tables === false && i < 100){
+    console.log("wait")
+    i += 1
+    setTimeout(()=> {}, 1000)
   } 
 
   update()

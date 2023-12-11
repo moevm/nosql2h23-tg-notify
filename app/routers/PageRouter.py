@@ -22,7 +22,7 @@ async def get_auth_page(request: Request):
     dependencies=[Depends(AuthService.validate_token)],
     response_class=HTMLResponse
 )
-async def get_auth_page(request: Request):
+async def get_admin_page(request: Request):
     return templates.TemplateResponse("admin.html", {"request": request})
 
 
@@ -31,5 +31,5 @@ async def get_auth_page(request: Request):
     dependencies=[Depends(AuthService.validate_token)],
     response_class=HTMLResponse
 )
-async def get_auth_page(request: Request):
+async def get_tables_page(request: Request):
     return templates.TemplateResponse("tables.html", {"request": request})

@@ -19,7 +19,7 @@ async def get_auth_page(request: Request):
 
 @router.get(
     "/admin",
-    dependencies=[Depends(AuthService.validate_token)],
+    dependencies=[Depends(AuthService.page_validate_token)],
     response_class=HTMLResponse
 )
 async def get_admin_page(request: Request):
@@ -28,7 +28,7 @@ async def get_admin_page(request: Request):
 
 @router.get(
     "/tables",
-    dependencies=[Depends(AuthService.validate_token)],
+    dependencies=[Depends(AuthService.page_validate_token)],
     response_class=HTMLResponse
 )
 async def get_tables_page(request: Request):

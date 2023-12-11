@@ -14,7 +14,7 @@ router = APIRouter(prefix="/table", tags=TABLE_TAGS)
 
 @router.get(
     "",
-    dependencies=[Depends(AuthService.validate_token)],
+    dependencies=[Depends(AuthService.request_validate_token)],
     response_description="Получить таблицу по id",
     response_model=Table,
     response_model_by_alias=False,

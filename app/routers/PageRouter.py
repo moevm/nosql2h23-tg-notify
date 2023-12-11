@@ -9,18 +9,27 @@ router = APIRouter(prefix="/page")
 templates = Jinja2Templates(directory="app/templates")
 
 
-@router.get("/auth", response_class=HTMLResponse)
+@router.get(
+    "/auth",
+    response_class=HTMLResponse
+)
 async def get_auth_page(request: Request):
     return templates.TemplateResponse("auth.html", {"request": request})
 
 
-@router.get("/admin", response_class=HTMLResponse)
+@router.get(
+    "/admin",
+    dependencies=[Depends(AuthService.validate_token)],
+    response_class=HTMLResponse
+)
 async def get_auth_page(request: Request):
-    return templates.TemplateResponse("admin.html", {"request": request, "img_url":""})
-    
-    
-@router.get("/tables",
-            dependencies=[Depends(AuthService.validate_token)],
-            response_class=HTMLResponse)
+    return templates.TemplateResponse("admin.html", {"request": request, "img_url": ""})
+
+
+@router.get(
+    "/tables",
+    dependencies=[Depends(AuthService.validate_token)],
+    response_class=HTMLResponse
+)
 async def get_auth_page(request: Request):
     return templates.TemplateResponse("tables.html", {"request": request})

@@ -6,7 +6,8 @@ from app.routers import (
     AuthRouter,
     PageRouter,
     LogRouter,
-    TableRouter
+    TableRouter,
+    DataRouter
 )
 
 app = FastAPI(
@@ -24,3 +25,4 @@ app.include_router(UserRouter.router)
 app.include_router(PageRouter.router)
 app.include_router(LogRouter.router)
 app.include_router(TableRouter.router)
+app.include_router(DataRouter.router)

@@ -1,9 +1,10 @@
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, Depends
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
-router = APIRouter(prefix="/page")
+from app.services.AuthService import AuthService
 
+router = APIRouter(prefix="/page")
 
 templates = Jinja2Templates(directory="app/templates")
 
@@ -17,3 +18,9 @@ async def get_auth_page(request: Request):
 async def get_auth_page(request: Request):
     return templates.TemplateResponse("admin.html", {"request": request, "img_url":""})
     
+    
+@router.get("/tables",
+            dependencies=[Depends(AuthService.validate_token)],
+            response_class=HTMLResponse)
+async def get_auth_page(request: Request):
+    return templates.TemplateResponse("tables.html", {"request": request})

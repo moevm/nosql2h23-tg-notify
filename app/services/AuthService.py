@@ -39,7 +39,7 @@ class AuthService:
                 raise HTTPException(status_code=401, detail="Incorrect password")
             else:
                 access_token = AuthService._create_access_token(user_login)
-                return TokenResponse(access_token=access_token)
+                return TokenResponse(access_token=access_token, photo_url=user.photo_url)
 
     @staticmethod
     def _create_access_token(login: str) -> str:

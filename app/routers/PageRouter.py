@@ -14,6 +14,11 @@ async def get_auth_page(request: Request):
     return templates.TemplateResponse("auth.html", {"request": request})
 
 
+@router.get("/admin", response_class=HTMLResponse)
+async def get_auth_page(request: Request):
+    return templates.TemplateResponse("admin.html", {"request": request, "img_url":""})
+    
+    
 @router.get("/tables",
             dependencies=[Depends(AuthService.validate_token)],
             response_class=HTMLResponse)

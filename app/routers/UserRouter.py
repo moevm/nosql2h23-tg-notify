@@ -19,7 +19,7 @@ router = APIRouter(prefix="/user", tags=USER_TAGS)
 
 
 @router.get(
-    "/{id}",
+    "",
     dependencies=[Depends(AuthService.validate_token)],
     response_description="Получить пользователя по id",
     response_model=User,

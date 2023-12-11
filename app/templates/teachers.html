@@ -19,11 +19,11 @@
     type: "GET",
     url: "/user/teachers/",
     contentType : "application/json",
+    headers: {"Authorization": sessionStorage.getItem("token")},
 
     success: function(data) {
 
           window.curr_arr_tables = data; //массив всех таблиц
-
           
           window.flad_load_tables = true
           },
@@ -36,7 +36,7 @@
 
 
 
-{% block bar_item_1_style %} 
+{% block bar_item_2_style %} 
 style= "border-bottom-color: white;
         box-sizing: border-box;
         border-bottom-width: 4px;

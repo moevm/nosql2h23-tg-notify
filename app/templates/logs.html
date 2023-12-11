@@ -27,6 +27,12 @@
           window.flad_load_tables = true
           },
 
+    error: function(request,status,errorThrown) {
+
+          $("body").html(`<h2> ${errorThrown}</h2>`);
+
+    }
+
     });
 
   </script>
@@ -119,7 +125,11 @@
 <script>
 
 window.onload = ()=> {
-  while (window.flad_load_tables === false){
+  var i = 0
+
+  while (window.flad_load_tables === false && i < 100){
+    console.log("wait")
+    i += 1
     setTimeout(()=> {}, 1000)
   } 
 

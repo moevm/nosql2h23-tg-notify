@@ -38,15 +38,16 @@ class AuthService:
             if not AuthService.verify(user.password, request.password):
                 raise HTTPException(status_code=401, detail="Incorrect password")
             else:
-                access_token = AuthService._create_access_token(user.id, user_login)
-                return TokenResponse(access_token=access_token, photo_url=user.photoUrl)
+                access_token = AuthService._create_access_token(user.id, user_login, user.photoUrl)
+                return TokenResponse(access_token=access_token)
 
     @staticmethod
-    def _create_access_token(user_id: str, login: str) -> str:
+    def _create_access_token(user_id: str, login: str, photo_url: str) -> str:
         payload = {
             "id": user_id,
             "login": login,
             "expires_at": AuthService._expiration_time(),
+            "photo_url": photo_url
         }
 
         return jwt.encode(payload, TOKEN_KEY, algorithm=TOKEN_ALGORITHM)

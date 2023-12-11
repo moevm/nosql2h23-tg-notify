@@ -8,23 +8,23 @@
 </head>
 
 <body>
-  
+
 
 <div class="w3-card-4 w3-display-middle" style="width: 30%">
   <div class="w3-container w3-blue  ">
     <h2>Авторизация</h2>
   </div>
   <form class="w3-container " id="myForm">
-    <p>      
+    <p>
     <label><b>Логин</b></label>
     <input class="w3-input w3-border w3-sand" id="login" type="text"></p>
     <p>
     <label><b>Пароль</b></label>
     <input class="w3-input w3-border w3-sand" id="password" type="password"></p>
     <a href="#" class="password-control" onclick="return show_hide_password(this);"></a>
-    <p>    
+    <p>
     <label class="w3-text-red" style="display: none" id="label_unauth">* неверный логин или пароль</label></p>
-    <p>  
+    <p>
     <button onclick="my_click()" type="button"  class="w3-btn w3-blue">Вход</button></p>
     </form>
 </div>
@@ -58,7 +58,7 @@
 
     success: function(data) {
           sessionStorage.setItem('token',  data.access_token);
-          sessionStorage.setItem('photo_url',  data.photo_url);
+          sessionStorage.setItem('photo_url',  parseJwt(data.access_token).photo_url);
 
           document.cookie = `Authorization=${data.access_token}`;
           window.location.href = '/page/tables';
@@ -94,7 +94,16 @@
     }
     return false;
   }
-  
+
+  function parseJwt (token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
+  }
+
   </script>
 </body>
 </html> 

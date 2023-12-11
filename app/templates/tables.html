@@ -18,7 +18,8 @@
         type: "GET",
         url: "/table/AllTables/",
         contentType : "application/json",
-
+        headers: {"Authorization": sessionStorage.getItem("token")},
+        
         success: function(data) {
               window.curr_arr_tables = data; //массив всех таблиц
               window.flad_load_tables = true

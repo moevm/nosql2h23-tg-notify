@@ -5,17 +5,18 @@
     {% endblock %}
 </head>
 <body>
+
     <div class="w3-row w3-center w3-blue w3-card-4  ">
-      <a href="#" class="w3-bar-item w3-button"  {% block bar_item_1_style %} style="padding: 26px" {% endblock %}>Таблицы</a>
-      <a href="#" class="w3-bar-item w3-button"  {% block bar_item_2_style %} style="padding: 26px" {% endblock %}">Преподаватели</a>
-      <a href="#" class="w3-bar-item w3-button"  {% block bar_item_3_style %} style="padding: 26px" {% endblock %}>Статистика</a>
-      <a href="#" class="w3-bar-item w3-button"   {% block bar_item_4_style %} style="padding: 26px" {% endblock %}>Логи</a>
+      <a href="/page/tables/" class="w3-bar-item w3-button"  {% block bar_item_1_style %} style="padding: 26px" {% endblock %}>Таблицы</a>
+      <a href="/page/teachers/" class="w3-bar-item w3-button"  {% block bar_item_2_style %} style="padding: 26px" {% endblock %}">Преподаватели</a>
+      <a href="/page/stat/" class="w3-bar-item w3-button"  {% block bar_item_3_style %} style="padding: 26px" {% endblock %}>Статистика</a>
+      <a href="/page/logs/" class="w3-bar-item w3-button"   {% block bar_item_4_style %} style="padding: 26px" {% endblock %}>Логи</a>
 
       <div class="w3-button  w3-right" style="padding: 2px; padding-left:6px">
 		<img src="{{img_url}}" class="w3-circle" style="width: 70px; height: 70px; ">
         <i class="fa fa-chevron-down" style="font-size: 12px; padding-left:  6px; padding-right: 12px "></i>
       </div>
-  </div>
+    </div>
 
 {% block content %}{% endblock %}
 </body>

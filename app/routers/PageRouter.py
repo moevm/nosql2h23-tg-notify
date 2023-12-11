@@ -16,6 +16,6 @@ async def get_auth_page(request: Request):
 @router.get("/teachers",
             response_class=HTMLResponse)
 async def get_auth_page(request: Request):
-    return templates.TemplateResponse("teachers.html", {"request": request})
+    return templates.TemplateResponse("teachers.html", {"request": request, "img_url": "https://www.w3schools.com/w3css/img_snowtops.jpg"})
     
     

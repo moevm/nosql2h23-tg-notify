@@ -1,15 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends "base.html" %}
+
+{% block head %}
   <title>Преподаватели</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
   <!-- зашрузим дыннне с бд -->
   <script>
 
-    window.MAX_NUM_ROW_TABLE = 2 // максимальное количество строк в таблице
+    window.MAX_NUM_ROW_TABLE = 4 // максимальное количество строк в таблице
     window.curr_page = 1 // текущая страница таблицы
     window.flad_load_tables = false
     window.flag_search = false
@@ -31,9 +32,21 @@
 
   </script>
 
-</head>
+{% endblock %}
 
-<body>
+
+
+{% block bar_item_1_style %} 
+style= "border-bottom-color: white;
+        box-sizing: border-box;
+        border-bottom-width: 4px;
+        border-bottom-style: solid;
+        padding: 24px 26px" 
+{% endblock %}
+
+
+
+{% block content %}
   
   <div class=" w3-container w3-margin">
   <div class=" w3-card-4 ">
@@ -80,12 +93,12 @@
     
    
     
-    <div class="w3-container w3-right w3-bar-item" style="margin-top: 10px">
-       <button class="w3-btn w3-red " >Удалить</button></p>
+    <div class="w3-container w3-right w3-bar-item" style="margin-top: 10px" >
+       <button  id="delete_btn" onclick="delete_mode()" class="w3-btn w3-red " >Удалить</button></p>
     </div>
     
-    <div class="w3-container w3-right w3-bar-item" style="margin-top: 10px">
-       <button class="w3-btn w3-blue " >Создать</button></p>
+    <div class="w3-container w3-right w3-bar-item" style="margin-top: 10px" >
+       <button id="create_btn" class="w3-btn w3-blue " >Создать</button></p>
     </div>
   </div>
   
@@ -125,7 +138,7 @@
 
 window.onload = ()=> {
   while (window.flad_load_tables === false){
-    setTimeout(()=> {}, 1000)
+    setTimeout(()=> {}, 300)
   } 
 
   update()
@@ -274,8 +287,60 @@ function update(){
   insert_table_html(1)
 }
 
+
+function delete_mode(){
+
+  $("#delete_btn").replaceWith(`<button id="accept_del_btn" onclick="accept_delete()" class="w3-btn w3-red " >Подтвердить</button></p>`)
+
+  $("#create_btn").replaceWith(`<button id="cancel_del_btn" onclick="cancel_delete_mode()" class="w3-btn w3-gray " >Отменить</button></p>`)
+  
+  $( "tr" ).slice(1).append( (ind)=>{ return `<input class="w3-check" type="checkbox" id="chek_${ind}">`})
+
+}
+
+
+function cancel_delete_mode(){
+  $("#accept_del_btn").replaceWith(`<button  id="delete_btn" onclick="delete_mode()" class="w3-btn w3-red " >Удалить</button></p>`)
+
+  $("#cancel_del_btn").replaceWith(`<button id="create_btn" class="w3-btn w3-blue " >Создать</button></p>`)
+  
+  $(".w3-check" ).remove()
+}
+
+function accept_delete(){
+  var arr_ind_checked = []
+
+  $('input:checkbox').each( function(ind) {if ($(this).prop('checked'))  arr_ind_checked.push(ind) })
+
+
+  var id_del_el = []
+
+  var n_page = window.curr_page
+  var ofsset =  (n_page-1) * window.MAX_NUM_ROW_TABLE
+
+  arr_ind_checked.forEach((currentValue)=>{
+                                          id_del_el.push( window.curr_arr_tables[ofsset + currentValue].id)
+                                          window.curr_arr_tables.splice(ofsset + currentValue,1)
+                                          ofsset -= 1
+                                          })
+
+
+  console.log(window.curr_arr_tables)
+
+  $.ajax({
+    type: "DELETE",
+    url: "/user/deleteTeacher/",
+    contentType : "application/json",
+
+    });
+
+  
+  cancel_delete_mode()
+  update()
+
+}
+
 </script>
 
   
-</body>
-</html> 
+{% endblock %}

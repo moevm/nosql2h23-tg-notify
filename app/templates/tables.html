@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
-  <!-- зашрузим дыннне с бд -->
+  <!-- загрузим дыннне с бд -->
   <script>
 
     window.MAX_NUM_ROW_TABLE = 2 // максимальное количество строк в таблице
@@ -15,18 +15,14 @@
     window.flag_search = false
 
     $.ajax({
-    type: "GET",
-    url: "/table/tables/",
-    contentType : "application/json",
+        type: "GET",
+        url: "/table/AllTables/",
+        contentType : "application/json",
 
-    success: function(data) {
-
-          window.curr_arr_tables = data; //массив всех таблиц
-
-          
-          window.flad_load_tables = true
-          },
-
+        success: function(data) {
+              window.curr_arr_tables = data; //массив всех таблиц
+              window.flad_load_tables = true
+        },
     });
 
   </script>

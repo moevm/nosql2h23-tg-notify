@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% block head %}
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <title>Профиль</title>
-</head>
-<body>
+{% endblock %}
+
+
+{% block content %}
     <div class="w3-card-4 w3-display-middle" style="width: 30%">
       <form class="w3-container " id="myForm">
         <p>
@@ -52,7 +52,7 @@
         return false;
 }
 </script>
-</body>
-</html>
+
+{% endblock %}
 
 

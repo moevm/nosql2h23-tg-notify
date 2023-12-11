@@ -22,6 +22,19 @@ class UserService:
             raise HTTPException(status_code=404, detail="User not found")
 
     @staticmethod
+    def get_users(user_ids: List[str]) -> List[User]:
+        res = []
+        for user_id in user_ids:
+            user = db.Users.find_by_id(user_id)
+
+            if user is None:
+                raise HTTPException(status_code=404, detail=f"User {user_id} not found")
+
+            res.append(user)
+
+        return res
+
+    @staticmethod
     def get_all_users() -> List[User]:
         return db.Users.find_all()
 

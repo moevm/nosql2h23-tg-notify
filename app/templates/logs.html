@@ -23,6 +23,8 @@
 
           window.curr_arr_tables = data; //массив всех таблиц
 
+          console.log(data)
+
           
           window.flad_load_tables = true
           },
@@ -64,6 +66,7 @@ style= "border-bottom-color: white;
         <select class="w3-select w3-border" id="option">
           <option value="date">Дате</option>
           <option value="action">Действию</option>
+          <option value="table">Таблице</option>
           <option value="admin">Пользователю</option>
         </select>
       </div>
@@ -102,6 +105,7 @@ style= "border-bottom-color: white;
   <table class="w3-table-all"  style="margin-bottom: 25px" id="table">
     <tr>
       <th class="w3-center">Дата</th>
+      <th class="w3-center">Сообщение</th>
       <th  class="w3-center">Действие</th>
       <th  class="w3-center" >Таблица</th>
       <th  class="w3-center" >Пользователь</th>
@@ -171,6 +175,7 @@ function insert_pagination(){
 function  insert_table_html(n_page){
   rows_html = `<tr> 
                 <th class="w3-center">Дата</th>
+                <th class="w3-center">Сообщение</th>
                 <th  class="w3-center">Действие</th>
                 <th  class="w3-center" >Таблица</th>
                 <th  class="w3-center" >Пользователь</th>
@@ -195,6 +200,7 @@ function  insert_table_html(n_page){
 
     rows_html +=  ` <tr>
                       <td  class="w3-center" >${convert_date(el.changeDate) }</td>
+                      <td  class="w3-center" >${el.message}</td>
                       <td  class="w3-center" >${el.action}</td>
                       <th  class="w3-center" >${get_name_table(el.tableId)}</th> //TODO
                       <td  class="w3-center" >${get_name_admin(el.adminId)}</td> //TODO
@@ -260,6 +266,12 @@ function search(){
   }
   
 
+  <option value="date">Дате</option>
+  <option value="action">Действию</option>
+  <option value="table">Таблице</option>
+  <option value="admin">Пользователю</option>
+
+
   if (input_text === "") return;
 
   window.flag_search = true;
@@ -271,8 +283,11 @@ function search(){
     case "action":
       func = (el) => el.action.toLowerCase().includes(input_text.toLowerCase());
       break;
+    case "table":
+      func = (el) => el.table.toLowerCase().includes(input_text.toLowerCase());
+      break;  
     case "admin":
-      func = (el) => el.creationDate.toLowerCase().includes(input_text.toLowerCase()); //TODO
+      func = (el) => el.admin.toLowerCase().includes(input_text.toLowerCase()); 
       break;
     default:
   }

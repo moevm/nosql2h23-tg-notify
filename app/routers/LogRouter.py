@@ -22,7 +22,7 @@ async def get_log(log_id: str):
 
 
 @router.get(
-    "/logs/",
+    "/AllLogs/",
     dependencies=[Depends(AuthService.request_validate_token)],
     response_description="Получить все логи",
     response_model=List[LogResponse],

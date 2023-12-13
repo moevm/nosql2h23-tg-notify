@@ -1,6 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends "base.html" %}
+
+{% block head %}
   <title>Логи</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -37,10 +37,21 @@
 
   </script>
 
-</head>
+{% endblock %}
 
-<body>
-  
+
+{% block bar_item_4_style %} 
+style= "border-bottom-color: white;
+        box-sizing: border-box;
+        border-bottom-width: 4px;
+        border-bottom-style: solid;
+        padding: 24px 26px" 
+{% endblock %}
+
+
+
+{% block content %}
+
   <div class=" w3-container w3-margin">
   <div class=" w3-card-4 ">
   <div class="w3-cell-row ">
@@ -299,6 +310,4 @@ function update(){
 
 </script>
 
-  
-</body>
-</html> 
+{% endblock %}

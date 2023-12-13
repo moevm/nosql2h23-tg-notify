@@ -16,8 +16,9 @@
 
     $.ajax({
     type: "GET",
-    url: "/log/logs/",
+    url: "/log/AllLogs/",
     contentType : "application/json",
+    headers: {"Authorization": sessionStorage.getItem("token")},
 
     success: function(data) {
 
@@ -142,10 +143,10 @@ style= "border-bottom-color: white;
 window.onload = ()=> {
   var i = 0
 
-  while (window.flad_load_tables === false && i < 100){
+  while (window.flad_load_tables === false && i < 1000){
     console.log("wait")
     i += 1
-    setTimeout(()=> {}, 1000)
+    setTimeout(()=> {}, 2000)
   } 
 
   update()
@@ -194,16 +195,24 @@ function  insert_table_html(n_page){
                     <td></td>
                     <td></td>
                     <td></td>
+                    <td></td>
                   </tr>`
       continue;
     }
+
+    
+
+    if(el.admin === null){
+      login = "-" } else{
+        login = el.admin.login 
+      }
 
     rows_html +=  ` <tr>
                       <td  class="w3-center" >${convert_date(el.changeDate) }</td>
                       <td  class="w3-center" >${el.message}</td>
                       <td  class="w3-center" >${el.action}</td>
-                      <th  class="w3-center" >${get_name_table(el.tableId)}</th> //TODO
-                      <td  class="w3-center" >${get_name_admin(el.adminId)}</td> //TODO
+                      <td  class="w3-center" >${el.table.tableName}</td> 
+                      <td  class="w3-center" >${ login}</td>
                     </tr>`
   
   }
@@ -266,12 +275,6 @@ function search(){
   }
   
 
-  <option value="date">Дате</option>
-  <option value="action">Действию</option>
-  <option value="table">Таблице</option>
-  <option value="admin">Пользователю</option>
-
-
   if (input_text === "") return;
 
   window.flag_search = true;
@@ -284,10 +287,10 @@ function search(){
       func = (el) => el.action.toLowerCase().includes(input_text.toLowerCase());
       break;
     case "table":
-      func = (el) => el.table.toLowerCase().includes(input_text.toLowerCase());
+      func = (el) => el.table.tableName.toLowerCase().includes(input_text.toLowerCase());
       break;  
     case "admin":
-      func = (el) => el.admin.toLowerCase().includes(input_text.toLowerCase()); 
+      func = (el) => {var login = "-"; if (el.admin != null){login = el.admin.login}; return login.toLowerCase().includes(input_text.toLowerCase()) }; 
       break;
     default:
   }

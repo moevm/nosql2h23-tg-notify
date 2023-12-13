@@ -1,9 +1,10 @@
 from typing import List
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 
 from app.const import LOG_TAGS
 from app.models.Log import Log
+from app.responses.LogResponse import LogResponse
 from app.services.LogService import LogService
 from app.services.AuthService import AuthService
 
@@ -13,7 +14,7 @@ router = APIRouter(prefix="/log", tags=LOG_TAGS)
 @router.get(
     "",
     response_description="Получить лог по id",
-    response_model=Log,
+    response_model=LogResponse,
     response_model_by_alias=False,
 )
 async def get_log(log_id: str):
@@ -22,9 +23,9 @@ async def get_log(log_id: str):
 
 @router.get(
     "/logs/",
-    # dependencies=[Depends(AuthService.validate_token)], <- проверка на токен
+    dependencies=[Depends(AuthService.request_validate_token)],
     response_description="Получить все логи",
-    response_model=List[Log],
+    response_model=List[LogResponse],
     response_model_by_alias=False,
 )
 async def get_all_logs():
@@ -33,6 +34,7 @@ async def get_all_logs():
 
 @router.get(
     "/search/",
+    dependencies=[Depends(AuthService.request_validate_token)],
     response_description="Поиск логов по полю",
     response_model=List[Log],
     response_model_by_alias=False

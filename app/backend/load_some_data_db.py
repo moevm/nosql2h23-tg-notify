@@ -13,7 +13,7 @@ user_1 = {
     "position": None,
     "creationDate": "2012-04-23T18:25:43.511Z",
     "role": "Admin",
-    "photoUrl": "https://2021-02/1614282221_80-p-chernii-fon-laika-98.jpg"
+    "photoUrl": "https://www.w3schools.com/w3css/img_snowtops.jpg"
 }
 
 user_2 = {

@@ -2,6 +2,8 @@
 
 Для авторизации используется пользователь с логином - vasia и паролем - 12345678
 
+Скринкаст: https://drive.google.com/file/d/12-6P74-FM2H-ggUKyOBYGw6Q8W5_ZK1i/view?usp=sharing
+
 ## Предварительная проверка заданий
 
 <a href=" ./../../../actions/workflows/1_helloworld.yml" >![1. Установка и настройка выбранной БД + ЯП]( ./../../actions/workflows/1_helloworld.yml/badge.svg)</a>

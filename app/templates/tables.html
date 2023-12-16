@@ -273,7 +273,7 @@ function search(){
       func = (el) => el.tableUrl.toLowerCase().includes(input_text.toLowerCase());
       break;
     case "date":
-      func = (el) => el.creationDate.toLowerCase().includes(input_text.toLowerCase());
+      func = (el) => convert_date(el.creationDate).includes(input_text);
       break;
     default:
   }

@@ -16,7 +16,6 @@ templates = Jinja2Templates(directory="app/templates")
 async def get_auth_page(request: Request):
     return templates.TemplateResponse("auth.html", {"request": request})
 
-
 @router.get(
     "/admin",
     dependencies=[Depends(AuthService.page_validate_token)],
@@ -33,3 +32,10 @@ async def get_admin_page(request: Request):
 )
 async def get_tables_page(request: Request):
     return templates.TemplateResponse("tables.html", {"request": request})
+
+
+@router.get("/logs", response_class=HTMLResponse,
+             dependencies=[Depends(AuthService.page_validate_token)],)
+async def get_logs_page(request: Request):
+    return templates.TemplateResponse("logs.html", {"request": request})
+    

@@ -10,7 +10,7 @@
   <!-- зашрузим дыннне с бд -->
   <script>
 
-    window.MAX_NUM_ROW_TABLE = 4 // максимальное количество строк в таблице
+    window.MAX_NUM_ROW_TABLE = 2 // максимальное количество строк в таблице
     window.curr_page = 1 // текущая страница таблицы
     window.flad_load_tables = false
     window.flag_search = false
@@ -57,8 +57,11 @@ style= "border-bottom-color: white;
 
 
 {% block content %}
+  <div id="loading" style="margin-top: 200px;">
+    <h2 class="w3-center">Loading...</h2>
+  </div>
   
-  <div class=" w3-container w3-margin">
+  <div class=" w3-container w3-margin" style="visibility:hidden;" id="search_div">
   <div class=" w3-card-4 ">
   <div class="w3-cell-row ">
     
@@ -93,7 +96,7 @@ style= "border-bottom-color: white;
   </div>
 
   
-<div class=" w3-container  w3-margin">
+<div class=" w3-container  w3-margin"  style="visibility:hidden;" id="table_div">
   <div class=" w3-card-4 ">
   <div class="w3-bar">
   
@@ -163,16 +166,27 @@ style= "border-bottom-color: white;
 
 <script>
 
+
 window.onload = ()=> {
-  var i = 0
+  
+  let intervalId = setInterval(()=> {
+    console.log('wait');
+    
+    if (window.flad_load_tables === true) {
+      
+      clearInterval(intervalId);
+      update()
+      end_load()
+    }
+  }, 1000);
 
-  while (window.flad_load_tables === false && i < 100){
-    console.log("wait")
-    i += 1
-    setTimeout(()=> {}, 1000)
-  } 
+  
+}
 
-  update()
+function end_load() {
+  $("#search_div").css("visibility","visible");
+  $("#table_div").css("visibility","visible");
+  $("#loading").remove();
 }
 
 

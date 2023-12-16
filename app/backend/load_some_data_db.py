@@ -3,8 +3,9 @@ from pymongo import MongoClient
 
 from config import DB_NAME, DB_PASSWORD, DB_PORT, DB_USERNAME
 
+user_id = ObjectId()
 user_1 = {
-    "_id": ObjectId(),
+    "_id": user_id,
     "login": "vasia",
     "password": "$2b$12$fY/mEvyT8P/mkvsMXINhLeF5.xTDordepTfJKr0lx.BMqqhPwtd6K",  # 12345678
     "userTg": None,
@@ -12,7 +13,7 @@ user_1 = {
     "position": None,
     "creationDate": "2012-04-23T18:25:43.511Z",
     "role": "Admin",
-    "photoUrl": "https://2021-02/1614282221_80-p-chernii-fon-laika-98.jpg"
+    "photoUrl": "https://www.w3schools.com/w3css/img_snowtops.jpg"
 }
 
 user_2 = {
@@ -27,8 +28,9 @@ user_2 = {
     "photoUrl": None
 }
 
+table_id = ObjectId()
 table_1 = {
-    "_id": ObjectId(),
+    "_id": table_id,
     "tableName": "ИДЗ 0999",
     "tableUrl": "https://docs.google.com/spreadsheets/d/1mOdWylUHkB8SrBND8HQyPcK2po8QYdHQ0G_27Rvh2jU/edit?resourcekey#gid=1186562930",
     "creationDate": "2012-04-23T18:25:43.511Z",
@@ -48,17 +50,19 @@ table_2 = {
 log_1 = {
     "_id": ObjectId(),
     "changeDate": "2012-04-23T18:25:43.511Z",
-    "action": "добавление таблицы",
-    "tableId": "76474754ab7674a2af4cd037",
-    "adminId": "84466854ab7674a2af4cd037"
+    "action": "Добавление таблицы",
+    "message": "Была добавлена таблица апофис",
+    "tableId": str(table_id),
+    "adminId": None
 }
 
 log_2 = {
     "_id": ObjectId(),
     "changeDate": "2012-04-23T18:25:43.511Z",
-    "action": "удаление таблицы",
-    "tableId": "76474754ab7674a2afраарар",
-    "adminId": "84466854ab76744676575757"
+    "action": "Удаление таблицы",
+    "message": "Была удалена таблица с учителями",
+    "tableId": str(table_id),
+    "adminId": str(user_id)
 }
 
 if __name__ == "__main__":

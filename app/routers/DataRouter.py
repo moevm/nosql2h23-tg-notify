@@ -14,9 +14,22 @@ router = APIRouter(prefix="/data", tags=DATA_TAGS)
 @router.get(
     "/export",
     dependencies=[Depends(AuthService.request_validate_token)],
-    response_description="Экспорт данных бд",
+    description="Экспорт данных бд",
     response_model=ExportResponse,
     response_model_by_alias=False,
 )
-async def export_data() -> ExportResponse:
-    return DataService.export_data()
+async def export_data() -> dict:
+    DataService.export_data()
+
+    return {"status": "success"}
+
+
+@router.get(
+    "/import",
+    dependencies=[Depends(AuthService.request_validate_token)],
+    description="Импорт данных в бд"
+)
+async def import_data() -> dict:
+    DataService.import_data()
+
+    return {"status": "success"}

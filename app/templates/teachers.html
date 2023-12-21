@@ -61,39 +61,55 @@ style= "border-bottom-color: white;
     <h2 class="w3-center">Loading...</h2>
   </div>
   
-  <div class=" w3-container w3-margin" style="visibility:hidden;" id="search_div">
-  <div class=" w3-card-4 ">
-  <div class="w3-cell-row ">
+  <div class=" w3-container w3-margin " style="visibility: hidden;"  id="search_div">
+    <div class=" w3-card-4 " style="padding-bottom: 10px; padding-top: 1px">
     
-      <div class="w3-container  w3-cell " style="width: 110px; ">
-        <p  style="margin-top: 10px">Поиск по:</p>
-      </div>
+    <h3 class = "w3-center">Поиск</h3>
+    
+      <!------------------------------------------------ Поля поиска ----------------------------------------------------------------->
       
-      <div class="w3-container w3-padding-24  w3-cell" style="width: 270px">
-        <select class="w3-select w3-border" id="option">
-          <option value="name">ФИО</option>
-          <option value="position">Должности</option>
-          <option value="userTg">Телеграм нику</option>
-        </select>
-      </div>
-      
-      <div class="w3-container  w3-cell"  >
-        <input class="w3-input w3-border" style="width: 800px;" type="text" placeholder="Введите данные" id="search_label">
-      </div>
-      
-      <div class="w3-container w3-center w3-cell">
-         <button onclick="search()" class="w3-btn w3-blue " >Поиск</button></p>
-      </div>
+        <div class="w3-container   w3-cell w3-cell-top"  style="width: 150px; padding-right: 0px">
+          <p>ФИО:</p>
+          <p  style="margin-top:24px" >Должность:</p>
+        </div>
+        
+        <div class="w3-container   w3-cell w3-cell-top" style="width: 350px; padding-left: 0px; padding-right: 26px">
+          <input class="w3-input w3-border" style="margin-top:6px" type="text" placeholder="Введите данные" id="label_name">
+          <input class="w3-input  w3-border" style="margin-top:8px"  type="text" placeholder="Введите данные" id="label_position">
+        </div>
+        
+        <div class="w3-container   w3-cell w3-cell-top"  style="width: 150px;   padding-right: 0px">
+          <p>Телеграм ник:</p>
+        </div>
+        
+        <div class="w3-container   w3-cell w3-cell-top" style="width: 350px; padding-left: 0px">
+        <input class="w3-input w3-border" style="margin-top:6px" type="text" placeholder="Введите данные" id="label_userTg">
+        
+        </div>
+         
+         
 
-      <div class="w3-container w3-center w3-cell">
-        <button onclick="cancel()" class="w3-btn w3-gray " >Отмена</button></p>
-      </div> 
-      
-      
-      
-  </div>
-  </div>
-  </div>
+      <!------------------------------------------------ Кнопки ----------------------------------------------------------------->
+
+        <div class="w3-container  w3-cell w3-cell-middle " style="
+     padding-left: 120px; padding-top:20px" >
+           <div class="w3-container w3-center w3-cell">
+             <button onclick="search()" class="w3-btn w3-blue w3-large" >Поиск</button></p>
+          </div>
+    
+          <div class="w3-container w3-center w3-cell" style="
+     padding-left: 50px;" >
+            <button onclick="cancel()" class="w3-btn w3-gray w3-large " >Отмена</button></p>
+          </div> 
+        </div>
+        
+         
+          
+         
+    
+    </div>
+ 
+    </div>
 
   
 <div class=" w3-container  w3-margin"  style="visibility:hidden;" id="table_div">
@@ -271,11 +287,13 @@ function left_click() {
   window.curr_page = window.curr_page - 1
 }
 
-
-
 function search(){
-  var selectedValue = $('#option').val();
-  var input_text = $('#search_label').val();
+  var input_text = {
+    name: $('#label_name').val(),
+    position: $('#label_position').val(),
+    userTg: $('#label_userTg').val()
+  }
+
 
   if (window.flag_search === false) {
     window.copy_arr_tables =  window.curr_arr_tables.slice();
@@ -283,25 +301,19 @@ function search(){
     window.curr_arr_tables = window.copy_arr_tables.slice();
   }
   
+  let arr_func = [];
 
-  if (input_text === "") return;
+  if (input_text.name != "") arr_func.push( (el) => el.username.toLowerCase().includes(input_text.name.toLowerCase()) );
+  if (input_text.position != "") arr_func.push( (el) => el.position.toLowerCase().includes(input_text.position.toLowerCase()) );
+  if (input_text.userTg != "") arr_func.push( (el) => el.userTg.toLowerCase().includes(input_text.userTg.toLowerCase()));
 
   window.flag_search = true;
 
-  switch (selectedValue) {
-    case "name":
-      func = (el) => el.username.toLowerCase().includes(input_text.toLowerCase());
-      break;
-    case "position":
-      func = (el) => el.position.toLowerCase().includes(input_text.toLowerCase());
-      break;
-    case "userTg":
-      func = (el) => el.userTg.toLowerCase().includes(input_text.toLowerCase());
-      break;
-    default:
-  }
-
-  window.curr_arr_tables =  window.curr_arr_tables.filter(func)
+  window.curr_arr_tables =  window.curr_arr_tables.filter((el)=>{var sum = true;
+                                                                 for(i = 0; i < arr_func.length; i++){
+                                                                   sum = sum &&  arr_func[i](el) 
+                                                                 };
+                                                                 return sum});
 
   update()
 }
@@ -313,7 +325,9 @@ function cancel(){
 
   window.flag_search = false;
 
-  $('#search_label').val('');
+  $('#label_name').val('');
+  $('#label_position').val('');
+  $('#label_userTg').val('');
 
   update()
 }

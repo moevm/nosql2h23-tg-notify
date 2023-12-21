@@ -14,16 +14,62 @@
       <a href="/page/stat/" class="w3-bar-item w3-button"  {% block bar_item_3_style %} style="padding: 26px" {% endblock %}>Статистика</a>
       <a href="/page/logs/" class="w3-bar-item w3-button"   {% block bar_item_4_style %} style="padding: 26px" {% endblock %}>Логи</a>
 
-      <div class="w3-button  w3-right" style="padding: 2px; padding-left:6px">
+      <div id="icon_btn" class="w3-button  w3-right" onclick="view_panel()" style="padding: 2px; padding-left:6px">
 		    <img src="" id="avatar_img" class="w3-circle" style="width: 70px; height: 70px; ">
         <i class="fa fa-chevron-down" style="font-size: 12px; padding-left:  6px; padding-right: 12px "></i>
       </div>
     </div>
 
+     
+    <div id="pop-up_panel" class=" w3-container w3-white  w3-card-4" style=" position: absolute; visibility: hidden; right:0px ; display: flex; flex-direction: column;">
+    	  <div class="w3-button w3-blue " onclick="to_admin()"  style=" margin-top: 10px">
+           <i class="fa fa-user " style="font-size: 12px;"></i>
+          <label>Профиль</label>
+        </div>
+        
+        <div class="w3-button w3-blue" onclick="to_setting_user()"  style=" margin-top: 10px">
+           <i class="fa fa-gear" style="font-size: 12px;"></i>
+          <label>Настройки</label>
+        </div>
+        
+        <div class="w3-button w3-red" onclick="exit_website()" style=" margin-top: 10px; margin-bottom: 15px">
+           <i class="fa  fa-sign-out" style="font-size: 12px;"></i>
+          <label>Выход</label>
+        </div>
+      
+
+	  </div>
+
 {% block content %}{% endblock %}
+
+
+
 </body>
 
 <script>
+  function to_admin(){
+    window.location.href = "/page/admin/"
+  }
+
+  function to_setting_user(){
+    window.location.href = "/page/setting_user/"
+  }
+
+  function exit_website(){
+    sessionStorage.clear();
+    window.location.href = "/page/auth"
+  }
+
+  function view_panel(){
+    $('#pop-up_panel').css('visibility', 'visible');
+    $('#icon_btn').attr("onclick", "hidden_panel()");
+  }
+
+  function hidden_panel(){
+    $('#pop-up_panel').css('visibility', 'hidden');
+    $('#icon_btn').attr("onclick", "view_panel()");
+  }
+
   photo_url = sessionStorage.getItem('photo_url');
   $('#avatar_img').attr('src', photo_url)
 </script>

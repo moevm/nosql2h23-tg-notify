@@ -3,6 +3,7 @@ import os.path
 from tkinter import Tk
 from tkinter import filedialog as fd
 from tkinter import messagebox as msg
+import os
 
 from bson.json_util import dumps
 from bson.json_util import loads
@@ -23,6 +24,10 @@ class DataService:
         logs = db.Logs.find_all()
 
         response = ExportResponse(users=users, tables=tables, logs=logs)
+        
+        if os.environ.get('DISPLAY','') == '':
+            print('no display found. Using :0.0')
+            os.environ.__setitem__('DISPLAY', ':0.0')
 
         tk = Tk()
         tk.withdraw()
@@ -47,6 +52,10 @@ class DataService:
 
     @staticmethod
     def import_data():
+        if os.environ.get('DISPLAY','') == '':
+            print('no display found. Using :0.0')
+            os.environ.__setitem__('DISPLAY', ':0.0')
+
         tk = Tk()
         tk.withdraw()
         tk.attributes('-topmost', True)

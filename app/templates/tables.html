@@ -243,7 +243,7 @@ function  insert_table_html(n_page){
                       <td  class="w3-center" >${el.tableName}</td>
                       <td><a href="${el.tableUrl}" style = "color: blue;">${el.tableUrl.slice(0, 70) + "..."}</a></td>
                       <td  class="w3-center">${convert_date(el.creationDate) }</td>
-                      <td  class="w3-center"><a href="/page/setting_table" style = "color: blue;">Настроить</a></td>
+                      <td  class="w3-center"><button id=${el.id} style = "color: blue;" onclick="OpenSettings(this.id)">Настроить</button></td>
                     </tr>`
   
   }
@@ -251,6 +251,14 @@ function  insert_table_html(n_page){
   $("#table").html(rows_html)
 
 }
+
+function OpenSettings(table_id){
+  // функция, открывающая страницу с настройками 
+  location.href = '/page/setting_table/' + table_id;
+}
+
+
+
 
 function convert_date(iso_format){
   var date = new Date(iso_format);

@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Request, Depends
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
+from app.services.TableService import TableService
 
 from app.services.AuthService import AuthService
 
@@ -57,3 +58,16 @@ async def get_teachers_page(request: Request):
             dependencies=[Depends(AuthService.page_validate_token)])
 async def get_logs_page(request: Request):
     return templates.TemplateResponse("logs.html", {"request": request})
+
+@router.get(
+    "/setting_table/{table_id}",
+    response_class=HTMLResponse,
+    dependencies=[Depends(AuthService.page_validate_token)]
+)
+async def get_setting_table_page(request: Request, table_id: str):
+    table = TableService.get_table(table_id)
+    return templates.TemplateResponse("edit_table.html", {"request": request, "table": table})
+
+
+
+

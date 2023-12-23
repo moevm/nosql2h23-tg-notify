@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Редактирование преподавателя</title>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+{% endblock %}
+
+
+{% block content %}
+<h2>Редактирование преподавателя</h2>
+
+<div class='w3-group'>
+  <div id='addTeacherForm'>
+    <label class="w3-label" for="fullName">ФИО преподавателя</label>
+    <input class="w3-input" type="text" id="fullName" name="fullName" placeholder="Введите ФИО нового преподавателя..." value="{{ teacher.username }}">
+
+    <label class="w3-label" for="jobTitle">Должность</label>
+    <input class="w3-input" type="text" id="jobTitle" name="jobTitle" placeholder="Введите должность нового преподавателя..." value="{{ teacher.position }}">
+
+    <label class="w3-label" for="telegramm">Телеграмм</label>
+    <input class="w3-input" type="text" id="telegramm" name="telegramm" placeholder="Введите текст уведомления для преподавателя, связанного с новой таблицей..." value="{{ teacher.userTg }}">
+
+    <button id="{{ teacher.id }}" class="w3-button w3-blue" onclick="editTable()">Сохранить</button>
+  </div>
+</div>
+
+
+<script>
+
+function editTable(){
+    var formData = {};
+    formData["username"] = $("#fullName").val();
+    formData["position"] = $("#jobTitle").val();
+    formData["userTg"] = $("#telegramm").val();
+    formData["user_id"] = $("button").attr('id');
+    console.log(formData);
+
+    $.ajax({
+      type: "put",
+      url: "/user/editTeacherProfile",
+      data: JSON.stringify(formData),
+      success: function(){location.href = "/page/teachers"},
+      headers: {"Authorization": sessionStorage.getItem("token")},
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+    });
+}
+
+
+</script>
+
+{% endblock %}

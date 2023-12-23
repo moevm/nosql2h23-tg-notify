@@ -241,13 +241,19 @@ function  insert_table_html(n_page){
                       <td  >${el.username}</td>
                       <td  >${el.position}</td>
                       <td  >${el.userTg }</td>
-                      <td  class="w3-center"><a href="/page/setting_teacher" style = "color: blue;">Настроить</a></td>
+                      <td  class="w3-center"><button id=${el.id} style = "color: blue;" onclick="OpenSettings(this.id)">Настроить</button></td>
                     </tr>`
   
   }
 
   $("#table").html(rows_html)
 
+}
+
+
+function OpenSettings(teacher_id){
+  // функция, открывающая страницу с настройками 
+  location.href = '/page/setting_teacher/' + teacher_id;
 }
 
 

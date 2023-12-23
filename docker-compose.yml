@@ -15,9 +15,10 @@ services:
   mongodb:
     container_name: tg_db
     image: "mongo:6-jammy"
+    command: mongod --port ${DB_PORT}
     restart: always
     ports:
-      - ${DB_PORTS}
+      - ${DB_LOCAL}:${DB_PORT}
     env_file:
       - .env
     volumes:

@@ -21,7 +21,7 @@
         <label><b>ФИО</b></label>
         <input class="w3-input w3-border w3-sand" id="username" type="text"></p>
         <p>
-        <button onclick="my_click()" type="button"  class="w3-btn w3-gray">Назад</button>
+        <button onclick="btn_back()" type="button"  class="w3-btn w3-gray">Назад</button>
         <button onclick="my_click()" type="button"  class="w3-btn w3-blue" style="float: right">Применить</button></p>
         </form>
     </div>
@@ -42,6 +42,11 @@
 </style>
 
 <script>
+    function btn_back() {
+        window.history.back(); 
+    }
+
+
     function show_hide_password(target){
         const input = document.getElementById('password');
         if (input.getAttribute('type') === 'password') {

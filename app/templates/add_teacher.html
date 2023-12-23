@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Добавление нового преподавателя</title>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+{% endblock %}
+
+{% block content %}
+<h2>Добавление нового преподавателя</h2>
+
+<div class='w3-group'>
+  <div id='addTeacherForm'>
+    <label class="w3-label" for="fullName">ФИО преподавателя</label>
+    <input class="w3-input" type="text" id="fullName" name="fullName" placeholder="Введите ФИО нового преподавателя...">
+
+    <label class="w3-label" for="jobTitle">Должность</label>
+    <input class="w3-input" type="text" id="jobTitle" name="jobTitle" placeholder="Введите должность нового преподавателя...">
+
+    <label class="w3-label" for="telegramm">Телеграмм</label>
+    <input class="w3-input" type="text" id="telegramm" name="telegramm" placeholder="Введите текст уведомления для преподавателя, связанного с новой таблицей...">
+
+    <button class="w3-button w3-blue" onclick="submit()">Добавить</button>
+  </div>
+</div>
+
+<script>
+
+function submit(){
+	var formData = {};
+	formData["username"] = $("#fullName").val();
+	formData["position"] = $("#jobTitle").val();
+	formData["userTg"] = $("#telegramm").val();
+	console.log(formData);
+
+	$.ajax({
+	  type: "post",
+	  url: "/user/addTeacher",
+	  data: JSON.stringify(formData),
+	  headers: {"Authorization": sessionStorage.getItem("token")},
+	  success: function(){location.href = "/page/teachers"},
+	  contentType: "application/json; charset=utf-8",
+	  dataType: "json",
+	});
+}
+
+
+</script>
+{% endblock %}
+
+

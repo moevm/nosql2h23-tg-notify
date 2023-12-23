@@ -18,6 +18,13 @@ templates = Jinja2Templates(directory="app/templates")
 async def get_add_table_page(request: Request):
     return templates.TemplateResponse("add_table.html", {"request": request})
 
+@router.get(
+    "/add_teacher",
+    dependencies=[Depends(AuthService.page_validate_token)],
+    response_class=HTMLResponse    
+)
+async def get_add_table_page(request: Request):
+    return templates.TemplateResponse("add_teacher.html", {"request": request})
 
 
 @router.get(

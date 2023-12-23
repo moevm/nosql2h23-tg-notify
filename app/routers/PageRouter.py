@@ -86,5 +86,14 @@ async def get_setting_table_page(request: Request, teacher_id: str):
     return templates.TemplateResponse("edit_teacher.html", {"request": request, "teacher": teacher})
 
 
+@router.get(
+    "/import_export",
+    response_class=HTMLResponse,
+    dependencies=[Depends(AuthService.page_validate_token)]
+)
+async def get_setting_table_page(request: Request):
+    return templates.TemplateResponse("import_export.html", {"request": request})
+
+
 
 

@@ -1,3 +1,6 @@
+import matplotlib
+matplotlib.use('Agg')
+
 from fastapi import (
     APIRouter,
     Depends
@@ -33,3 +36,7 @@ async def import_data() -> dict:
     DataService.import_data()
 
     return {"status": "success"}
+
+
+
+

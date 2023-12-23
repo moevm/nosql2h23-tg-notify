@@ -22,7 +22,7 @@
         <input class="w3-input w3-border w3-sand" id="username" type="text"></p>
         <p>
         <button onclick="btn_back()" type="button"  class="w3-btn w3-gray">Назад</button>
-        <button onclick="my_click()" type="button"  class="w3-btn w3-blue" style="float: right">Применить</button></p>
+        <button onclick="edit_user_data()" type="button"  class="w3-btn w3-blue" style="float: right">Применить</button></p>
         </form>
     </div>
 
@@ -43,7 +43,34 @@
 
 <script>
     function btn_back() {
-        window.history.back(); 
+        window.history.back();
+    }
+
+    function edit_user_data() {
+        const token = sessionStorage.getItem("token");
+        var formData = JSON.stringify(
+            {
+                "user_id": parseJwt(token).id,
+                "login": $("#login").val(),
+                "password": $("#password").val(),
+                "photoUrl": "https://www.w3schools.com/w3css/img_snowtops.jpg",
+                "username": $("#username").val()
+            }
+        );
+
+        $.ajax({
+            type: "PUT",
+            url: "/user/editAdminProfile",
+            data: formData,
+            headers: {"Authorization": token},
+            dataType: "json",
+            contentType : "application/json",
+
+            success: function () {
+                sessionStorage.clear();
+                window.location.href = "/page/auth"
+            }
+        });
     }
 
 

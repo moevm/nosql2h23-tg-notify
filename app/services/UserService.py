@@ -77,7 +77,8 @@ class UserService:
             raise HTTPException(status_code=400, detail="Invalid user role")
 
         user.login = request.login
-        user.password = AuthService.bcrypt(request.password)
+        if request.password != "":
+            user.password = AuthService.bcrypt(request.password)
         user.username = request.username
         user.photoUrl = request.photoUrl
         db.Users.update(user)

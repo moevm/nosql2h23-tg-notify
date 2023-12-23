@@ -243,16 +243,23 @@ function  insert_table_html(n_page){
     
 
     if(el.admin === null){
-      login = "-" } else{
+        login = "-" 
+      } else{
         login = el.admin.login 
       }
+
+    if(el.table === null){
+        name_tb = "-" 
+      } else{
+        name_tb = el.table.tableName
+      }  
 
     rows_html +=  ` <tr>
                       <td  class="w3-center" >${convert_date(el.changeDate) }</td>
                       <td  class="w3-center" >${el.message}</td>
                       <td  class="w3-center" >${el.action}</td>
-                      <td  class="w3-center" >${el.table.tableName}</td> 
-                      <td  class="w3-center" >${ login}</td>
+                      <td  class="w3-center" >${name_tb}</td> 
+                      <td  class="w3-center" >${login}</td>
                     </tr>`
   
   }
@@ -304,43 +311,6 @@ function left_click() {
 
 
 
-function search(){
-  var selectedValue = $('#option').val();
-  var input_text = $('#search_label').val();
-
-  if (window.flag_search === false) {
-    window.copy_arr_tables =  window.curr_arr_tables.slice();
-  } else {
-    window.curr_arr_tables = window.copy_arr_tables.slice();
-  }
-  
-
-  if (input_text === "") return;
-
-  window.flag_search = true;
-
-  switch (selectedValue) {
-    case "date":
-      func = (el) => convert_date(el.changeDate).includes(input_text);
-      break;
-    case "action":
-      func = (el) => el.action.toLowerCase().includes(input_text.toLowerCase());
-      break;
-    case "table":
-      func = (el) => el.table.tableName.toLowerCase().includes(input_text.toLowerCase());
-      break;  
-    case "admin":
-      func = (el) => {var login = "-"; if (el.admin != null){login = el.admin.login}; return login.toLowerCase().includes(input_text.toLowerCase()) }; 
-      break;
-    default:
-  }
-
-  window.curr_arr_tables =  window.curr_arr_tables.filter(func)
-
-  update()
-}
-
-
 
 function search(){
   var input_text = {
@@ -361,7 +331,7 @@ function search(){
   
   let arr_func = [];
 
-  if (input_text.table != "") arr_func.push( (el) => el.table.tableName.toLowerCase().includes(input_text.table.toLowerCase()) );
+  if (input_text.table != "") arr_func.push( (el) => {var name_tb = "-"; if (el.table != null){name_tb = el.table.tableName}; return name_tb.toLowerCase().includes(input_text.table.toLowerCase()) } );
   if (input_text.admin != "") arr_func.push(  (el) => {var login = "-"; if (el.admin != null){login = el.admin.login}; return login.toLowerCase().includes(input_text.admin.toLowerCase()) } );
   if (input_text.action != "") arr_func.push( (el) => el.action.toLowerCase().includes(input_text.action.toLowerCase()) );
   if (input_text.msg != "") arr_func.push( (el) => el.message.toLowerCase().includes(input_text.msg.toLowerCase()) );

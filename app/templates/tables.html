@@ -124,7 +124,7 @@ style= "border-bottom-color: white;
     </div>
     
     <div class="w3-container w3-right w3-bar-item" style="margin-top: 10px">
-       <button class="w3-btn w3-blue " >Создать</button></p>
+       <button class="w3-btn w3-blue" onclick="addTable()" >Создать</button></p>
     </div>
   </div>
   
@@ -177,6 +177,15 @@ window.onload = ()=> {
 
   
 }
+
+
+// функция, обрабатывающая нажатие кнопки добавления таблицы
+function addTable(){
+  // переход на страницу с формой для добавления новой таблицы
+  location.href = "/page/add_table";
+}
+
+
 
 function end_load() {
   $("#search_div").css("visibility","visible");

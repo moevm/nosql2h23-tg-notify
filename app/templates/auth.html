@@ -61,7 +61,7 @@
           sessionStorage.setItem('photo_url',  parseJwt(data.access_token).photo_url);
 
           document.cookie = `Authorization=${data.access_token}`;
-          window.location.href = '/page/tables/';
+          window.location.href = '/page/tables';
     },
 
     error: function(request,status,errorThrown) {

@@ -17,7 +17,7 @@
 
     $.ajax({
     type: "GET",
-    url: "/user/teachers/",
+    url: "/user/teachers",
     contentType : "application/json",
     headers: {"Authorization": sessionStorage.getItem("token")},
 
@@ -162,23 +162,6 @@ style= "border-bottom-color: white;
   
   </div>
   </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <script>
 
@@ -388,7 +371,7 @@ function accept_delete(){
 
   $.ajax({
     type: "DELETE",
-    url: "/user/deleteTeacher/",
+    url: "/user/deleteTeacher",
     contentType : "application/json",
 
     });

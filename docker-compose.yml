@@ -6,7 +6,7 @@ services:
     build: .
     restart: unless-stopped
     ports:
-      - "8000:80"
+      - ${SERVER_PORTS}
     depends_on:
       - mongodb
     env_file:
@@ -15,9 +15,10 @@ services:
   mongodb:
     container_name: tg_db
     image: "mongo:6-jammy"
+    command: mongod --port ${DB_PORT}
     restart: always
     ports:
-      - "27017:27017"
+      - ${DB_LOCAL}:${DB_PORT}
     env_file:
       - .env
     volumes:

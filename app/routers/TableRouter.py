@@ -24,8 +24,8 @@ async def get_table(table_id: str):
 
 
 @router.get(
-    "/tables/",
-    # dependencies=[Depends(AuthService.validate_token)],
+    "/tables",
+    dependencies=[Depends(AuthService.request_validate_token)],
     response_description="Получить таблицы по id",
     response_model=List[Table],
     response_model_by_alias=False,
@@ -35,8 +35,8 @@ async def get_tables(table_ids: List[str] = Query(...)):
 
 
 @router.get(
-    "/AllTables/",
-    # dependencies=[Depends(AuthService.validate_token)], <- проверка на токен
+    "/AllTables",
+    dependencies=[Depends(AuthService.request_validate_token)],
     response_description="Получить все таблицы",
     response_model=List[Table],
     response_model_by_alias=False,
@@ -46,7 +46,8 @@ async def get_all_tables():
 
 
 @router.get(
-    "/search/",
+    "/search",
+    dependencies=[Depends(AuthService.request_validate_token)],
     response_description="Поиск таблиц по полю",
     response_model=List[Table],
     response_model_by_alias=False
@@ -56,7 +57,8 @@ async def search_tables(sorting_field: str, data: str):
 
 
 @router.post(
-    "/addTable/",
+    "/addTable",
+    dependencies=[Depends(AuthService.request_validate_token)],
     response_description="Добавление таблицы",
     response_model=Table,
     response_model_by_alias=False
@@ -66,7 +68,8 @@ async def add_table(request: AddTableRequest):
 
 
 @router.put(
-    "/editTable/",
+    "/editTable",
+    dependencies=[Depends(AuthService.request_validate_token)],
     response_description="Редактирование таблицы",
     response_model=Table,
     response_model_by_alias=False
@@ -76,7 +79,8 @@ async def edit_table(request: EditTableRequest):
 
 
 @router.delete(
-    "/deleteTable/",
+    "/deleteTable",
+    dependencies=[Depends(AuthService.request_validate_token)],
     response_description="Удаление таблицы",
     response_model=Table,
     response_model_by_alias=False
@@ -86,7 +90,8 @@ async def delete_table(table_id: str):
 
 
 @router.delete(
-    "/deleteTables/",
+    "/deleteTables",
+    dependencies=[Depends(AuthService.request_validate_token)],
     response_description="Удаление таблиц",
     response_model=List[Table],
     response_model_by_alias=False

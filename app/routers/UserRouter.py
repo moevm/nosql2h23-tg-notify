@@ -30,7 +30,7 @@ async def get_user(user_id: str):
 
 
 @router.get(
-    "/users/",
+    "/users",
     dependencies=[Depends(AuthService.request_validate_token)],
     response_description="Получить пользователей по id",
     response_model=List[User],
@@ -41,7 +41,7 @@ async def get_users(user_ids: List[str] = Query(...)):
 
 
 @router.get(
-    "/AllUsers/",
+    "/AllUsers",
     dependencies=[Depends(AuthService.request_validate_token)],
     response_description="Получить всех пользователей",
     response_model=List[User],
@@ -52,7 +52,7 @@ async def get_all_users():
 
 
 @router.get(
-    "/teachers/",
+    "/teachers",
     dependencies=[Depends(AuthService.request_validate_token)],
     response_description="Получить всех учителей",
     response_model=List[User],
@@ -63,7 +63,7 @@ async def get_all_teachers():
 
 
 @router.get(
-    "/search/",
+    "/search",
     dependencies=[Depends(AuthService.request_validate_token)],
     response_description="Поиск преподователей по полю",
     response_model=List[User],
@@ -74,7 +74,7 @@ async def search_teachers(sorting_field: str, data: str):
 
 
 @router.post(
-    "/addTeacher/",
+    "/addTeacher",
     dependencies=[Depends(AuthService.request_validate_token)],
     response_description="Добавить преподователя",
     response_model=User,
@@ -85,7 +85,7 @@ async def add_teacher(request: AddTeacherRequest = Body(...)):
 
 
 @router.put(
-    "/editAdminProfile/",
+    "/editAdminProfile",
     dependencies=[Depends(AuthService.request_validate_token)],
     response_description="Изменить данные профиля админа",
     response_model=User,
@@ -96,7 +96,7 @@ async def edit_admin_profile(request: EditAdminProfileRequest = Body(...)):
 
 
 @router.put(
-    "/editTeacherProfile/",
+    "/editTeacherProfile",
     dependencies=[Depends(AuthService.request_validate_token)],
     response_description="Изменить данные профиля преподавателя",
     response_model=User,
@@ -107,7 +107,7 @@ async def edit_teacher_profile(request: EditTeacherProfileRequest = Body(...)):
 
 
 @router.delete(
-    "/deleteTeacher/",
+    "/deleteTeacher",
     dependencies=[Depends(AuthService.request_validate_token)],
     response_description="Удалить преподавателя",
     response_model=User,
@@ -118,7 +118,7 @@ async def delete_teacher(user_id: str):
 
 
 @router.delete(
-    "/deleteTeachers/",
+    "/deleteTeachers",
     dependencies=[Depends(AuthService.request_validate_token)],
     response_description="Удалить преподавателей",
     response_model=List[User],

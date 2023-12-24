@@ -22,14 +22,8 @@
     headers: {"Authorization": sessionStorage.getItem("token")},
 
     success: function(data) {
-
           window.curr_arr_tables = data; //массив всех таблиц
-
-          console.log("success")
-          
           window.flad_load_tables = true
-
-          console.log(window.flad_load_tables)
           },
 
     error: function(request,status,errorThrown) {
@@ -172,8 +166,6 @@ function create(){
 window.onload = ()=> {
   
   let intervalId = setInterval(()=> {
-    console.log('wait');
-    
     if (window.flad_load_tables === true) {
       
       clearInterval(intervalId);
@@ -200,7 +192,6 @@ function insert_pagination(){
 
   for(i = 1; i <= window.max_num_page; i++){
     pagin_html += "<button  id=\"pagn_btn_"+ i + "\" onclick=\"click_pagging_btn("+i+")\" class=\"w3-bar-item w3-button \" style=\"padding: 8.8px 16px\">" + i +"</a>"
-    console.log(i)
   }
 
   pagin_html += " <button  onclick=\"right_click()\" class=\"w3-bar-item w3-button  w3-border\" >&raquo;</a>"
@@ -375,14 +366,10 @@ function accept_delete(){
                                           ofsset -= 1
                                           })
 
-
-  console.log(window.curr_arr_tables)
-
   $.ajax({
     type: "DELETE",
     url: "/user/deleteTeacher",
     contentType : "application/json",
-
     });
 
   

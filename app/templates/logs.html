@@ -21,14 +21,9 @@
     headers: {"Authorization": sessionStorage.getItem("token")},
 
     success: function(data) {
-
           window.curr_arr_tables = data; //массив всех таблиц
-
-          console.log(data)
-
-          
           window.flad_load_tables = true
-          },
+    },
 
     error: function(request,status,errorThrown) {
 
@@ -158,22 +153,10 @@ style= "border-bottom-color: white;
   </div>
   </div>
 
-
-
-
-
-
-
-<!--////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-
-
-
 <script>
 
 window.onload = ()=> {
   let intervalId = setInterval(()=> {
-    console.log('wait');
-    
     if (window.flad_load_tables === true) {
       
       clearInterval(intervalId);
@@ -191,17 +174,12 @@ function end_load() {
   $("#loading").remove();
 }
 
-
-
-//window.onload = insert_table_html(1)
-
 //вставляет пагинацию
 function insert_pagination(){
   pagin_html = " <button  onclick=\"left_click()\" class=\"w3-bar-item w3-button  w3-border\">&laquo;</a>"   
 
   for(i = 1; i <= window.max_num_page; i++){
     pagin_html += "<button  id=\"pagn_btn_"+ i + "\" onclick=\"click_pagging_btn("+i+")\" class=\"w3-bar-item w3-button \" style=\"padding: 8.8px 16px\">" + i +"</a>"
-    console.log(i)
   }
 
   pagin_html += " <button  onclick=\"right_click()\" class=\"w3-bar-item w3-button  w3-border\" >&raquo;</a>"
@@ -239,8 +217,6 @@ function  insert_table_html(n_page){
                   </tr>`
       continue;
     }
-
-    
 
     if(el.admin === null){
         login = "-" 
@@ -308,9 +284,6 @@ function left_click() {
 
   window.curr_page = window.curr_page - 1
 }
-
-
-
 
 function search(){
   var input_text = {
@@ -416,7 +389,6 @@ function click_pagging_btn(n){
   $('#pagn_btn_'+ n).addClass('w3-blue')
 
   window.curr_page = n
-
 }
 
 </script>

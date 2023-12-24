@@ -2,15 +2,18 @@
 
 {% block head %}
 <title>Импорт/Экспорт</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 {% endblock %}
 
 
 {% block content %}
-<h1>Импорт/Экспорт</h1>
-<label style="color: #808080">Примечание: экспорт и импорт в формате json</label><br>
-<button class="w3-button w3-blue" onclick="import_data()">Импорт</button>
-<button class="w3-button w3-blue" onclick="export_data()">Экспорт</button><br>
+<div class="w3-display-middle" style="width: 30%; height: 15%">
+    <h1>Импорт/Экспорт</h1>
+    <label style="color: #808080">Примечание: экспорт и импорт в формате json</label><br>
+    <button class="w3-button w3-blue" onclick="import_data()">Импорт</button>
+    <button class="w3-button w3-blue" onclick="export_data()">Экспорт</button><br>
+</div>
 
 <script>
 

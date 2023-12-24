@@ -60,5 +60,3 @@ class DataService:
                 message=table[4][1],
                 columnName=table[5][1]
             ))        
-
- 

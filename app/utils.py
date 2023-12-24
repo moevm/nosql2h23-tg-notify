@@ -10,7 +10,4 @@ def filter_date(date):
 	date_string = date.replace("T", "-")
 	last_index = find_string(date_string, ":")
 	date_string = date_string[:last_index]
-	print("-------------")
-	print(date_string, dateformat)
-	print("-------------")
 	return datetime.strptime(date_string, dateformat)

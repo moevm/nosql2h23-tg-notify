@@ -8,6 +8,6 @@ from app.models.User import User
 
 
 class ExportResponse(BaseModel):
-    users: List[User]
-    logs: List[Log]
-    tables: List[Table]
+    users: list#List[User]
+    logs: list#List[Log]
+    tables: list#List[Table]

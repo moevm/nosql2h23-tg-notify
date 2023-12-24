@@ -3,26 +3,29 @@
 {% block head %}
 <title>Добавление новой таблицы</title>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
 {% endblock %}
 
 {% block content %}
-<h2>Добавление новой таблицы</h2>
+<div class="w3-display-middle" style="width: 40%">
+  <h2>Добавление новой таблицы</h2>
 
-<div class='w3-group'>
-  <div id='addTableForm'> <!--action="/table/addTable" method='post'-->
-    <label class="w3-label" for="tableName">Название таблицы</label>
-    <input class="w3-input" type="text" id="tableName" name="tableName" placeholder="Введите название новой таблицы...">
+  <div class='w3-group'>
+    <div id='addTableForm'>
+      <label class="w3-label" for="tableName">Название таблицы</label>
+      <input class="w3-input w3-border w3-sand" type="text" id="tableName" name="tableName" placeholder="Введите название новой таблицы...">
 
-    <label class="w3-label" for="tableUrl">Ссылка</label>
-    <input class="w3-input" type="text" id="tableUrl" name="tableUrl" placeholder="Введите ссылку на новую таблицу...">
+      <label class="w3-label" for="tableUrl">Ссылка</label>
+      <input class="w3-input w3-border w3-sand" type="text" id="tableUrl" name="tableUrl" placeholder="Введите ссылку на новую таблицу...">
 
-    <label class="w3-label" for="message">Текст уведомления</label>
-    <input class="w3-input" type="text" id="message" name="message" placeholder="Введите текст уведомления для преподавателя, связанного с новой таблицей...">
+      <label class="w3-label" for="message">Текст уведомления</label>
+      <input class="w3-input w3-border w3-sand" type="text" id="message" name="message" placeholder="Введите текст уведомления для преподавателя, связанного с новой таблицей...">
 
-    <label class="w3-label" for="columnName">Колонка идентификатора</label>
-    <input class="w3-input" type="text" id="columnName" name="columnName" placeholder="Введите идентификатор колонки с отслеживаемыми изменениями...">
-  
-    <button class="w3-button w3-blue" onclick="submit()">Добавить</button>
+      <label class="w3-label" for="columnName">Колонка идентификатора</label>
+      <input class="w3-input w3-border w3-sand" type="text" id="columnName" name="columnName" placeholder="Введите идентификатор колонки с отслеживаемыми изменениями...">
+
+      <button class="w3-button w3-blue" onclick="submit()">Добавить</button>
+    </div>
   </div>
 </div>
 
@@ -35,14 +38,14 @@ function submit(){
 	formData["message"] = $("#message").val();
 	formData["columnName"] = $("#columnName").val();
 
-
-
 	$.ajax({
-	  type: "post",
+	  type: "POST",
 	  url: "/table/addTable",
 	  data: JSON.stringify(formData),
 	  headers: {"Authorization": sessionStorage.getItem("token")},
-	  success: function(){location.href = "/page/tables"},
+	  success: function(){
+        location.href = "/page/tables"
+      },
 	  contentType: "application/json; charset=utf-8",
 	  dataType: "json",
 	});

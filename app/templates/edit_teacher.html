@@ -3,24 +3,27 @@
 {% block head %}
 <title>Редактирование преподавателя</title>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
 {% endblock %}
 
 
 {% block content %}
-<h2>Редактирование преподавателя</h2>
+<div class="w3-display-middle" style="width: 30%">
+  <h2>Редактирование преподавателя</h2>
 
-<div class='w3-group'>
-  <div id='addTeacherForm'>
-    <label class="w3-label" for="fullName">ФИО преподавателя</label>
-    <input class="w3-input" type="text" id="fullName" name="fullName" placeholder="Введите ФИО нового преподавателя..." value="{{ teacher.username }}">
+  <div class='w3-group'>
+    <div id='addTeacherForm'>
+      <label class="w3-label" for="fullName">ФИО преподавателя</label>
+      <input class="w3-input w3-border w3-sand" type="text" id="fullName" name="fullName" placeholder="Введите ФИО нового преподавателя..." value="{{ teacher.username }}">
 
-    <label class="w3-label" for="jobTitle">Должность</label>
-    <input class="w3-input" type="text" id="jobTitle" name="jobTitle" placeholder="Введите должность нового преподавателя..." value="{{ teacher.position }}">
+      <label class="w3-label" for="jobTitle">Должность</label>
+      <input class="w3-input w3-border w3-sand" type="text" id="jobTitle" name="jobTitle" placeholder="Введите должность нового преподавателя..." value="{{ teacher.position }}">
 
-    <label class="w3-label" for="telegramm">Телеграмм</label>
-    <input class="w3-input" type="text" id="telegramm" name="telegramm" placeholder="Введите текст уведомления для преподавателя, связанного с новой таблицей..." value="{{ teacher.userTg }}">
+      <label class="w3-label" for="telegramm">Телеграмм</label>
+      <input class="w3-input w3-border w3-sand" type="text" id="telegramm" name="telegramm" placeholder="Введите текст уведомления для преподавателя, связанного с новой таблицей..." value="{{ teacher.userTg }}">
 
-    <button id="{{ teacher.id }}" class="w3-button w3-blue" onclick="editTable()">Сохранить</button>
+      <button id="{{ teacher.id }}" class="w3-button w3-blue" onclick="editTable()">Сохранить</button>
+    </div>
   </div>
 </div>
 

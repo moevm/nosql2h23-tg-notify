@@ -1,22 +1,14 @@
 import json
-import os.path
-from tkinter import Tk
-from tkinter import filedialog as fd
-from tkinter import messagebox as msg
-import os
-from datetime import datetime
 
 from bson.json_util import dumps
-from bson.json_util import loads
-from fastapi import HTTPException
 
 from app.backend.db import db
 from app.models.Log import Log
 from app.models.Table import Table
 from app.models.User import User
-from app.responses.ExportResponse import ExportResponse
 from app.requests.data.DataRequest import DataRequest
-from app.utils import find_string, filter_date
+from app.responses.ExportResponse import ExportResponse
+from app.utils import filter_date
 
 
 class DataService:
@@ -25,14 +17,12 @@ class DataService:
         users = db.Users.find_all()
         tables = db.Tables.find_all()
         logs = db.Logs.find_all()
-        #print(type(users), type(tables), type(logs))
         response = ExportResponse(users=users, tables=tables, logs=logs)
-        print(response)
+
         save_path = "app/files/data.json"
         with open(save_path, 'w') as file:
             json.dump(json.loads(dumps(response)), file, ensure_ascii=False)
         return response
-
 
     @staticmethod
     def import_database(request: DataRequest):

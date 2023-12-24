@@ -17,7 +17,6 @@ app = FastAPI(
     swagger_ui_parameters={"defaultModelsExpandDepth": -1},
 )
 
-app.mount("/static", StaticFiles(directory="app/static"), name="static")
 app.mount("/files", StaticFiles(directory="app/files"), name="static_files")
 
 app.include_router(AuthRouter.router)

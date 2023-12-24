@@ -4,6 +4,7 @@ from datetime import datetime
 def find_string(txt, str1):
 	return txt.find(str1, txt.find(str1)+1)
 
+
 def filter_date(date):
 	dateformat = r"%Y-%m-%d-%H:%M"
 	date_string = date.replace("T", "-")

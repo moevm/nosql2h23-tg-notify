@@ -39,18 +39,6 @@
                     let result = {};
                     result['data'] = jsonData;
 
-                /*
-                    $.ajax({
-                      type: "put",
-                      url: "/table/editTable",
-                      data: JSON.stringify(formData),
-                      success: function(){location.href = "/page/tables"},
-                      headers: {"Authorization": sessionStorage.getItem("token")},
-                      contentType: "application/json; charset=utf-8",
-                      dataType: "json",
-                    });
-                */
-
                     $.ajax({
                       type: "put",
                       url: "/data/import",
@@ -62,7 +50,6 @@
                     });                    
                     
                 })
-                // Read the file as text. We'll parse it with JSON.parse later
                 reader.readAsText(file);
             }
         })

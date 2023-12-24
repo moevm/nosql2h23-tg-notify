@@ -12,13 +12,11 @@
 <button class="w3-button w3-blue" onclick="import_data()">Импорт</button>
 <button class="w3-button w3-blue" onclick="export_data()">Экспорт</button><br>
 
-<!--a href="/files/Biologicheskoe_i_kompyuternoe_zrenie.pdf" download>download</a-->
-
 <script>
 
 function import_data(){
     $.ajax({
-      type: "get",
+      type: "GET",
       url: "/page/import",
       success: function(){location.href = "/page/import"},
       headers: {"Authorization": sessionStorage.getItem("token")},
@@ -26,19 +24,14 @@ function import_data(){
   
 }
 
-
 function export_data(){
     $.ajax({
-      type: "get",
+      type: "GET",
       url: "/data/export",
       success: function(){location.href = "/page/export"},
       headers: {"Authorization": sessionStorage.getItem("token")},
     });
 }
 
-
 </script>
 {% endblock %}
-
-
-

@@ -10,17 +10,20 @@
 <h1>Импорт/Экспорт</h1>
 <label style="color: #808080">Примечание: экспорт и импорт в формате json</label><br>
 <button class="w3-button w3-blue" onclick="import_data()">Импорт</button>
-<button class="w3-button w3-blue" onclick="export_data()">Экспорт</button>
+<button class="w3-button w3-blue" onclick="export_data()">Экспорт</button><br>
+
+<!--a href="/files/Biologicheskoe_i_kompyuternoe_zrenie.pdf" download>download</a-->
 
 <script>
 
 function import_data(){
     $.ajax({
       type: "get",
-      url: "/data/import",
-      success: function(){location.href = "/page/tables"},
+      url: "/page/import",
+      success: function(){location.href = "/page/import"},
       headers: {"Authorization": sessionStorage.getItem("token")},
     });
+  
 }
 
 
@@ -28,7 +31,7 @@ function export_data(){
     $.ajax({
       type: "get",
       url: "/data/export",
-      success: function(){location.href = "/page/tables"},
+      success: function(){location.href = "/page/export"},
       headers: {"Authorization": sessionStorage.getItem("token")},
     });
 }

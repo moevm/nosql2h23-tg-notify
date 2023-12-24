@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Импорт</title>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+{% endblock %}
+
+
+{% block content %}
+<form id="fileForm">
+    <input type="file" name="fileItem" id="fileItem" required>
+    <input type="submit">
+</form>
+<textarea id="fileContents"></textarea>
+<script>
+    (function(){
+        "use strict";
+        // Add an event handler to the form's submit event
+        document.getElementById('fileForm').addEventListener('submit', function(e){
+            // Stop the browser submitting anything
+            e.preventDefault();
+            // Get the file object
+            let file = document.getElementById('fileItem').files[0];
+            // Check the file is actually JSON
+            if (file.type !== "application/json") {
+                document.getElementById('fileContents').value = "Invalid file type"+file.type;
+            } else {
+                // Create a file reader
+                let reader = new FileReader();
+                // Add an event handler to the 'load' event
+                reader.addEventListener('load', function (e) {
+                    // Post the file contents to the page
+                    document.getElementById('fileContents').value = e.target.result;
+                    // parse the JSON
+                    let jsonData = JSON.parse(e.target.result);
+                    // Process incoming JSON data here.
+                    console.log(jsonData);
+
+                    let result = {};
+                    result['data'] = jsonData;
+
+                /*
+                    $.ajax({
+                      type: "put",
+                      url: "/table/editTable",
+                      data: JSON.stringify(formData),
+                      success: function(){location.href = "/page/tables"},
+                      headers: {"Authorization": sessionStorage.getItem("token")},
+                      contentType: "application/json; charset=utf-8",
+                      dataType: "json",
+                    });
+                */
+
+                    $.ajax({
+                      type: "put",
+                      url: "/data/import",
+                      data: JSON.stringify(result),
+                      success: function(){location.href = "/page/import_export"},
+                      headers: {"Authorization": sessionStorage.getItem("token")},
+                      contentType: "application/json; charset=utf-8",
+                      dataType: "json",
+                    });                    
+                    
+                })
+                // Read the file as text. We'll parse it with JSON.parse later
+                reader.readAsText(file);
+            }
+        })
+    })();
+</script>
+{% endblock %}
+
+

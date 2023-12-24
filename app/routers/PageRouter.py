@@ -94,6 +94,21 @@ async def get_setting_table_page(request: Request, teacher_id: str):
 async def get_setting_table_page(request: Request):
     return templates.TemplateResponse("import_export.html", {"request": request})
 
+@router.get(
+    "/import",
+    response_class=HTMLResponse,
+    dependencies=[Depends(AuthService.page_validate_token)]
+)
+async def get_setting_table_page(request: Request):
+    return templates.TemplateResponse("import.html", {"request": request})
+
+@router.get(
+    "/export",
+    response_class=HTMLResponse,
+    dependencies=[Depends(AuthService.page_validate_token)]
+)
+async def get_setting_table_page(request: Request):
+    return templates.TemplateResponse("export.html", {"request": request})
 
 
 

@@ -14,14 +14,13 @@ services:
 
   mongodb:
     container_name: tg_db
-    image: "mongo:6-jammy"
-    command: mongod --port ${DB_PORT}
+    image: "mongo:7.0.4"
     restart: always
-    ports:
-      - ${DB_LOCAL}:${DB_PORT}
-    env_file:
-      - .env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_ROOT_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_ROOT_PWD}
     volumes:
+      - ./mongo/mongo_init.js:/docker-entrypoint-initdb.d/mongo-init.js
       - dbdata6:/data/db
           
 volumes:

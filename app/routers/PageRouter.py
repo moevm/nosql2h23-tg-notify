@@ -7,6 +7,8 @@ from app.services.AuthService import AuthService
 
 router = APIRouter(prefix="/page")
 
+router_auth = APIRouter(prefix="")
+
 templates = Jinja2Templates(directory="app/templates")
 
 
@@ -28,8 +30,8 @@ async def get_add_table_page(request: Request):
     return templates.TemplateResponse("add_teacher.html", {"request": request})
 
 
-@router.get(
-    "/auth",
+@router_auth.get(
+    "/",
     response_class=HTMLResponse
 )
 async def get_auth_page(request: Request):
